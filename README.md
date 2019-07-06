@@ -1,6 +1,6 @@
 # vue-test-declarative
 
-Declarative unit testing for your Vue components.
+Declarative unit testing for Vue components.
 
 ## Installation
 
