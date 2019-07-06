@@ -39,25 +39,25 @@ glob(cwd + '/**/*.vuetest', options, (err, files) => {
 })
 
 function processFile(file) {
-  let parsed = parser.parse(file);
+  let [parsedXml, script] = parser.parse(file);
 
-  console.log(parsed);
+  console.log(parsedXml);
 
-  let componentName = parsed.tests['@_for'];
+  let componentName = parsedXml.tests['@_for'];
 
   if (!componentName) {
     console.error("Error: Test lacks a `for` attribute.");
     return;
   }
 
-  let componentPath = parsed.tests['@_at'];
+  let componentPath = parsedXml.tests['@_at'];
 
   if (!componentPath) {
     console.error("Error: Test lacks an `at` attribute.");
     return;
   }
 
-  let generated = generator.generate(componentName, componentPath, parsed);
+  let generated = generator.generate(componentName, componentPath, parsedXml, script);
 
   if (!fs.existsSync(workingDir)){
     fs.mkdirSync(workingDir);

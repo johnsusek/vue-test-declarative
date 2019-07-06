@@ -9,13 +9,11 @@ import { shallowMount } from '@vue/test-utils';
 
 let data = ``;
 
-function generate(componentName, componentPath, parsed) {
+function generate(componentName, componentPath, parsed, script) {
   let lines = [];
 
   lines.push(`import ${componentName} from '${componentPath}/${componentName}.vue';\n`);
   lines.push(`describe('${componentName}', () => {\n`);
-
-  data = parsed.script
 
   let its;
 
@@ -36,7 +34,7 @@ function generate(componentName, componentPath, parsed) {
   lines.push('});');
   debugger;
 
-  return `${head}\n${data}\n\n${lines.join('\n')}\n\n`;
+  return `${head}\n${script}\n\n${lines.join('\n')}\n\n`;
 }
 
 module.exports = {

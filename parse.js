@@ -21,9 +21,20 @@ let options = {
 };
 
 function parse(fileName) {
-  // If this file doesn't exist, an exception will be thrown and app will quit,
-  // as we want
-  let xmlData = fs.readFileSync(fileName, 'utf8')
+  let rawFile = fs.readFileSync(fileName, 'utf8');
+
+  // First we just take the <script> area out since we don't
+  // want to deal with passing it through the xml decoder
+  let matches = rawFile.match(/<script>(.*)<\/script>/s);
+  let scriptData;
+
+  // Might not have a script tag, so allow for that
+  if (matches && matches.length && matches.length === 2) {
+    scriptData = matches[1].trim();
+    rawFile = rawFile.replace(matches[0], '')
+  }
+
+  let xmlData = rawFile.trim();
 
   // If there was a validation error, object is returned { err: ... }
   // otherwise 'true' for good validation
@@ -35,7 +46,9 @@ function parse(fileName) {
   }
 
   // Valid - we can safely parse
-  return parser.parse(xmlData, options);
+  let parsed = parser.parse(xmlData, options);
+
+  return [parsed, scriptData]
 }
 
 module.exports = {
