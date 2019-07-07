@@ -15,12 +15,12 @@ First create a new vue-cli project and add mocha unit testing during setup. Then
 ```xml
 <tests for="HelloWorld" at="@/components">
   <it will="render props.msg when passed" v-bind:props="props">
-    <expect text v-bind:to-include="props.msg" />
+    <expect text v-bind:to-match="props.msg" />
   </it>
 </tests>
 
 <script>
-let data = {
+let context = {
   props: {
     msg: 'new message',
   }
@@ -29,8 +29,48 @@ let data = {
 
 ```
 
-Then, run the test:
+Then, run the tests. This command will generate mocha tests from your .vuetest files and run them.
 
 ```
 ./node_modules/.bin/vue-test-declarative
+```
+
+
+## More examples
+
+### Basic matching of any text in the component 
+```xml
+<expect text to-match="test message" />
+```
+
+### Using a selector
+
+```xml
+<expect text-of=".hello" to-match="test message" />
+```
+
+### With binding. Anything in `context` can be bound. 
+
+```xml
+<expect text v-bind:to-match="props.msg" />
+```
+
+### HTML matching. Note indenting gets collapsed for comparisons. 
+
+```xml
+<expect html to-match>
+  <html>
+    <div class="hello"><h1 class="message"> test message </h1></div>
+  </html>
+</expect>
+```
+
+### With a selector 
+
+```xml
+<expect html-of=".message" to-match>
+  <html>
+    <h1 class="message"> test message </h1>
+  </html>
+</expect>
 ```

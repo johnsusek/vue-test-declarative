@@ -35,6 +35,10 @@ function parse(fileName) {
   }
 
   let xmlData = rawFile.trim();
+  
+  // Next we want to replace our 'fake cdata' <html></html> tags
+  xmlData = xmlData.replace(/<html>/g, '<![CDATA[')
+  xmlData = xmlData.replace(/<\/html>/g, ']]>')
 
   // If there was a validation error, object is returned { err: ... }
   // otherwise 'true' for good validation

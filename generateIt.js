@@ -5,21 +5,18 @@ function generateIt(componentName, it) {
 
   lines.push(`  it('will ${it['@_will']}', () => {`);
 
-  //     const wrapper = shallowMount(HelloWorld, {
-  //       propsData: { msg },
-  //     });
   lines.push(`    let wrapper = shallowMount(${componentName});`);
 
   // v-bind:props="props" = wrapper.setProps(props)
   let propsBinding = it['@_v-bind:props'];
   if (propsBinding) {
-    lines.push(`    wrapper.setProps(data.${propsBinding});`);
+    lines.push(`    wrapper.setProps(context.${propsBinding});`);
   }
 
   // v-bind:data="data" = wrapper.setData(data)
   let dataBinding = it['@_v-bind:data'];
   if (dataBinding) {
-    lines.push(`    wrapper.setData(data.${dataBinding});`);
+    lines.push(`    wrapper.setData(context.${dataBinding});`);
   }
 
   let expects;

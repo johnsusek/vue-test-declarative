@@ -3,11 +3,10 @@ let generateIt = require('./generateIt');
 
 let head = `
 /* THIS FILE IS AUTO-GENERATED, EDITS WILL BE OVERWRITTEN */
+
 import expect from 'expect';
 import { shallowMount } from '@vue/test-utils';
 `;
-
-let data = ``;
 
 function generate(componentName, componentPath, parsed, script) {
   let lines = [];
