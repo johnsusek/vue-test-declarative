@@ -13,9 +13,10 @@ Its aim is to sit alongside vue-test-utils and provide an easy to approach entry
 
 # Usage
 
-For this example we'll test the `HelloWorld` component from the default vue-cli template. 
 
 ## Write test
+For this example we'll test the `HelloWorld` component from the default vue-cli template. 
+
 Create a `HelloWorld.vuetest` file anywhere in your project with these contents:
 
 ```xml
@@ -46,7 +47,9 @@ This command will generate and run mocha tests for all .vuetest files in your pr
 
 # Examples
 
-Users are highly encouraged to check out the [example TodoMVC app](), which adds .vuetest coverage to the official TodoMVC example. 
+👉 [TodoMVC Example](https://github.com/johnsusek/vue-test-declarative-todomvc)
+
+Users are highly encouraged to check out this example. It adds .vuetest coverage to a modified version of the official TodoMVC implementation.. 
 
 # Feedback
 

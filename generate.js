@@ -6,6 +6,7 @@ let head = `
 
 import expect from 'expect';
 import { shallowMount } from '@vue/test-utils';
+
 `;
 
 function generate(componentPath, parsed, script) {

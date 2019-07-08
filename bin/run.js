@@ -2,6 +2,7 @@
 let glob = require('glob');
 let fs = require('fs');
 let parser = require('../parse');
+let { setup } = require('../setup');
 let generator = require('../generate');
 let { spawn } = require('child_process');
 let uuidv4 = require('uuid/v4');
@@ -24,9 +25,9 @@ let options = {
   ignore: ["**/node_modules/**", "./node_modules/**"]
 }
 
+// 1) Find all .vuetest files in the project 
 glob(cwd + '/**/*.vuetest', options, (err, files) => {
-  // 1) Find all .vuetest files in the project 
-  console.log(files)
+  createSetupFile();
 
   // 2) Process each and write them to a temp test directory
   files.forEach(file => {
@@ -34,10 +35,26 @@ glob(cwd + '/**/*.vuetest', options, (err, files) => {
   })
 
   // 3) Use mocha-webpack to run those tests
-  runTests();
-
-  // 4) Cleanup temp test files
+  if (files.length) {
+    runTests();
+  }
+  else {
+    console.log('No .vuetest files found.');
+  }
 })
+
+function createSetupFile() {
+  if (!fs.existsSync(workingDir)){
+    fs.mkdirSync(workingDir);
+  }
+
+  try {
+    fs.writeFileSync(`${workingDir}/setup.js`, setup.trim());
+  } catch (error) {
+    console.error("Error writing setup file: ", error);
+    process.exit(1);
+  }
+}
 
 function processFile(file) {
   let [parsedXml, script] = parser.parse(file);
@@ -65,23 +82,27 @@ function processFile(file) {
 
 // TODO: add config file so users can customize webpack config location
 function runTests() {
-  let child = spawn('./node_modules/.bin/mocha-webpack', 
-    [
-      '-r',
-      'jsdom-global/register',
-      '--webpack-config', 
-      './node_modules/@vue/cli-service/webpack.config.js',
-      workingDir + '/*.vuetest.spec.js'
-    ],
-    {
-      stdio: 'inherit' 
-    }
-  );
-  
-  child.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
+  try {
+    let child = spawn('./node_modules/.bin/mocha-webpack', 
+      [
+        '--require',
+        workingDir + '/setup.js',
+        '--webpack-config', 
+        './node_modules/@vue/cli-service/webpack.config.js',
+        workingDir + '/*.vuetest.spec.js'
+      ],
+      {
+        stdio: 'inherit' 
+      }
+    ); 
+    
+    child.on('close', (code) => {
+      cleanup();
+    });    
+  } catch (error) {
+    console.error("Error: Problem spawning mocha-webpack.")
     cleanup();
-  });
+  }
 }
 
 // remove generated tests
@@ -91,9 +112,10 @@ function cleanup() {
       fs.unlinkSync(file);
     })
 
+    fs.unlinkSync(workingDir + '/setup.js');
+
     if (fs.existsSync(workingDir)){
       fs.rmdirSync(workingDir);
     }    
   });
 }
-
