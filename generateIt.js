@@ -6,7 +6,7 @@ function generateIt(it) {
   lines.push(`  it('will ${it['@_will']}', async () => {`);
   
   // TODO: move this out one level?
-  lines.push(`    let wrapper = shallowMount(Component, { localVue, sync: false });`);
+  lines.push(`    let wrapper = mount(Component, { localVue, sync: false });`);
 
   // v-bind:props="props" = wrapper.setProps(props)
   let propsBinding = it['@_v-bind:props'];
