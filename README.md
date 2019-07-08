@@ -8,6 +8,7 @@ Its aim is to sit alongside vue-test-utils and provide an easy to approach entry
 
 * Create a new vue-cli project with mocha unit testing
   * For existing projects use `vue add @vue/unit-mocha`
+  * For older projects, non vue-cli projects, and other scenarios, [see here](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/Install.md)
 * Run `npm install --save-dev vue-test-declarative expect jsdom jsdom-global`
 * Add `"test:declarative": "vue-test-declarative"` to the `scripts` section of package.json
 
@@ -40,6 +41,18 @@ let context = {
 `npm run test:declarative`
 
 This command will generate and run mocha tests for all .vuetest files in your project.
+
+## vuetest.setup.js
+
+Sometimes your tests will require you to import and register components you are using (like vuetify or element-ui). If you need this functionality, create a `vuetest.setup.js` file in the project root that defines a variable called `localVue`. This will be used instead of the default Vue instance when running your tests.
+
+```javascript
+import ElementUI from 'element-ui';
+import { createLocalVue } from '@vue/test-utils';
+
+let localVue = createLocalVue();
+localVue.use(ElementUI);
+```
 
 # Documentation
 

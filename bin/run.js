@@ -40,6 +40,7 @@ glob(cwd + '/**/*.vuetest', options, (err, files) => {
   }
   else {
     console.log('No .vuetest files found.');
+    cleanup();
   }
 })
 
@@ -66,7 +67,14 @@ function processFile(file) {
     return;
   }
 
-  let generated = generator.generate(componentPath, parsedXml, script);
+  let localVue = `let localVue = createLocalVue();`
+
+  // If there is a vuetest.setup.js file, use those contents instead
+  if (fs.existsSync('./vuetest.setup.js')) {
+    localVue = fs.readFileSync('./vuetest.setup.js');
+  }
+
+  let generated = generator.generate(componentPath, parsedXml, script, localVue);
 
   if (!fs.existsSync(workingDir)){
     fs.mkdirSync(workingDir);
@@ -80,22 +88,43 @@ function processFile(file) {
   }
 }
 
+function findWebpackConfig() {
+  let configLocation
+
+  if (fs.existsSync('./node_modules/@vue/cli-service/webpack.config.js')) {
+    configLocation = './node_modules/@vue/cli-service/webpack.config.js';
+  }
+  else if (fs.existsSync('./build/webpack.base.conf.js')) {
+    configLocation = './build/webpack.base.conf.js';
+  }
+
+  return configLocation;
+}
+
 // TODO: add config file so users can customize webpack config location
 function runTests() {
+  let webpackConfig = findWebpackConfig();
+
+  if (!webpackConfig) {
+    console.error("Error: Could not find webpack config file.")
+    cleanup();
+    process.exit(1);
+  }
+
   try {
     let child = spawn('./node_modules/.bin/mocha-webpack', 
       [
         '--require',
         workingDir + '/setup.js',
         '--webpack-config', 
-        './node_modules/@vue/cli-service/webpack.config.js',
+        webpackConfig,
         workingDir + '/*.vuetest.spec.js'
       ],
       {
         stdio: 'inherit' 
       }
     ); 
-    
+
     child.on('close', (code) => {
       cleanup();
     });    

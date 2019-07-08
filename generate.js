@@ -4,15 +4,19 @@ let generateIt = require('./generateIt');
 let head = `
 /* THIS FILE IS AUTO-GENERATED, EDITS WILL BE OVERWRITTEN */
 
+import Vue from 'vue';
 import expect from 'expect';
-import { shallowMount } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 
 `;
 
-function generate(componentPath, parsed, script) {
+function generate(componentPath, parsed, script, localVue) {
   let lines = [];
 
   lines.push(`import Component from '${componentPath}';\n`);
+
+  lines.push(localVue)
+
   lines.push(`describe('${componentPath}', () => {\n`);
 
   let its;

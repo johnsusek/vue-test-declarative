@@ -3,9 +3,10 @@ let generateExpect = require('./generateExpect');
 function generateIt(it) {
   let lines = [];
 
-  lines.push(`  it('will ${it['@_will']}', () => {`);
-
-  lines.push(`    let wrapper = shallowMount(Component);`);
+  lines.push(`  it('will ${it['@_will']}', async () => {`);
+  
+  // TODO: move this out one level?
+  lines.push(`    let wrapper = shallowMount(Component, { localVue, sync: false });`);
 
   // v-bind:props="props" = wrapper.setProps(props)
   let propsBinding = it['@_v-bind:props'];
@@ -35,7 +36,7 @@ function generateIt(it) {
     lines = lines.concat(generateExpect.generateExpect(expect));
   });
 
-
+  // TODO: destroy()
   lines.push('  });\n');
 
   return lines;

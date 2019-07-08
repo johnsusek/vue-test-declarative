@@ -57,6 +57,7 @@ function generateExpect(expect) {
     }
   }
 
+  lines.push(`    await Vue.nextTick();`)
   lines.push(`    expect(${subjectValue}).${comparisonFn}(${expectedValue});`);
 
   return lines;
