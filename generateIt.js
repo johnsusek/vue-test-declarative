@@ -1,11 +1,11 @@
 let generateExpect = require('./generateExpect');
 
-function generateIt(componentName, it) {
+function generateIt(it) {
   let lines = [];
 
   lines.push(`  it('will ${it['@_will']}', () => {`);
 
-  lines.push(`    let wrapper = shallowMount(${componentName});`);
+  lines.push(`    let wrapper = shallowMount(Component);`);
 
   // v-bind:props="props" = wrapper.setProps(props)
   let propsBinding = it['@_v-bind:props'];

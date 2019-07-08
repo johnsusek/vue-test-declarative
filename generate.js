@@ -8,11 +8,11 @@ import expect from 'expect';
 import { shallowMount } from '@vue/test-utils';
 `;
 
-function generate(componentName, componentPath, parsed, script) {
+function generate(componentPath, parsed, script) {
   let lines = [];
 
-  lines.push(`import ${componentName} from '${componentPath}/${componentName}.vue';\n`);
-  lines.push(`describe('${componentName}', () => {\n`);
+  lines.push(`import Component from '${componentPath}';\n`);
+  lines.push(`describe('${componentPath}', () => {\n`);
 
   let its;
 
@@ -27,7 +27,7 @@ function generate(componentName, componentPath, parsed, script) {
 
   // loop through each 'its' to generate the case
   its.forEach(it => {
-    lines = lines.concat(generateIt.generateIt(componentName, it));
+    lines = lines.concat(generateIt.generateIt(it));
   });
 
   lines.push('});');

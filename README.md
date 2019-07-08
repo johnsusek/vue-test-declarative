@@ -1,76 +1,58 @@
-# vue-test-declarative
+# Introduction
 
-Declarative unit testing for Vue components.
+Writing Vue components is a pleasure, but when it comes time to test them, suddenly the fun goes away. What if there was an easier way to get started testing your components? A way to describe your tests in a familiar declarative format, without having to learn the entire JS testing ecosystem just to be a responsible developer? Well **vue-test-declarative** aims to do just that, letting you spend more time thinking about what to test and less time thinking about the details of running the tests.
 
-## Installation
+Its aim is to sit alongside vue-test-utils and provide an easy to approach entry point into unit testing. The vue-test-utils package will always be available to you for custom behavior or scenarios not covered by vue-test-declarative. In this way vue-test-declarative aims to be additive to the ecosystem, instead of replacing anything.
 
-This has only been tested on a project scaffolded with the latest vue-cli with the mocha option. Further configuration will be required if you didn't use vue-cli to generate your project. Please file an issue or doc PR if you have good steps for installing this from a fresh project, I will integrate it into the docs.
+# Installation
 
-`npm install --save-dev vue-test-declarative @vue/test-utils expect jsdom jsdom-global`
+* Create a new vue-cli project with mocha unit testing
+  * For existing projects use `vue add @vue/unit-mocha`
+* Run `npm install --save-dev vue-test-declarative expect jsdom jsdom-global`
+* Add `"test:declarative": "vue-test-declarative"` to the `scripts` section of package.json
 
-## Example
+# Usage
 
-First create a new vue-cli project and add mocha unit testing during setup. Then, create a `HelloWorld.vuetest` file (it doesn't matter where, either alongside the component or in a separate directory) with these contents:
+For this example we'll test the `HelloWorld` component from the default vue-cli template. 
+
+## Write test
+Create a `HelloWorld.vuetest` file anywhere in your project with these contents:
 
 ```xml
-<tests for="HelloWorld" at="@/components">
-  <it will="render props.msg when passed" v-bind:props="props">
-    <expect text v-bind:to-match="props.msg" />
+<tests for="@/components/HelloWorld.vue">
+  <it will="render message correctly" v-bind:props="props">
+    <expect text to-match="Welcome!" />
   </it>
 </tests>
 
 <script>
 let context = {
   props: {
-    msg: 'new message',
+    msg: 'Welcome!',
   }
 };
 </script>
-
 ```
 
-Then, run the tests. This command will generate mocha tests from your .vuetest files and run them.
+## Run tests
 
-```
-./node_modules/.bin/vue-test-declarative
-```
+`npm run test:declarative`
 
+This command will generate and run mocha tests for all .vuetest files in your project.
 
-## More examples
+# Documentation
 
-### Basic matching of any text in the component 
-```xml
-<expect text to-match="test message" />
-```
+👉 [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md)
 
-### Using a selector
+# Examples
 
-```xml
-<expect text-of=".hello" to-match="test message" />
-```
+Users are highly encouraged to check out the [example TodoMVC app](), which adds .vuetest coverage to the official TodoMVC example. 
 
-### With binding. Anything in `context` can be bound. 
+# Feedback
 
-```xml
-<expect text v-bind:to-match="props.msg" />
-```
+**Feedback encouraged**, please file a github issue. This is the early days of this project so your feedback is critical in guiding the design!
 
-### HTML matching. Note indenting gets collapsed for comparisons. 
+# Contributing
 
-```xml
-<expect html to-match>
-  <html>
-    <div class="hello"><h1 class="message"> test message </h1></div>
-  </html>
-</expect>
-```
+**Contributors wanted**, I am actively looking for people to help with this project. There is a lot of work left to do, including the design of the API. If you like the idea of this project and want to help out, please email john@johnsolo.net or @jsusek. 
 
-### With a selector 
-
-```xml
-<expect html-of=".message" to-match>
-  <html>
-    <h1 class="message"> test message </h1>
-  </html>
-</expect>
-```

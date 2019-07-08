@@ -4,6 +4,7 @@ let fs = require('fs');
 let parser = require('../parse');
 let generator = require('../generate');
 let { spawn } = require('child_process');
+let uuidv4 = require('uuid/v4');
 
 // Make sure ran from project root since we assume this
 if (!fs.existsSync('package.json')){
@@ -41,30 +42,21 @@ glob(cwd + '/**/*.vuetest', options, (err, files) => {
 function processFile(file) {
   let [parsedXml, script] = parser.parse(file);
 
-  console.log(parsedXml);
+  let componentPath = parsedXml.tests['@_for'];
 
-  let componentName = parsedXml.tests['@_for'];
-
-  if (!componentName) {
+  if (!componentPath) {
     console.error("Error: Test lacks a `for` attribute.");
     return;
   }
 
-  let componentPath = parsedXml.tests['@_at'];
-
-  if (!componentPath) {
-    console.error("Error: Test lacks an `at` attribute.");
-    return;
-  }
-
-  let generated = generator.generate(componentName, componentPath, parsedXml, script);
+  let generated = generator.generate(componentPath, parsedXml, script);
 
   if (!fs.existsSync(workingDir)){
     fs.mkdirSync(workingDir);
   }
   
   try {
-    fs.writeFileSync(`${workingDir}/${componentName}.vuetest.spec.js`, generated.trim());
+    fs.writeFileSync(`${workingDir}/${uuidv4()}.vuetest.spec.js`, generated.trim());
   } catch (error) {
     console.error("Error writing spec file: ", error);
     process.exit(1);
