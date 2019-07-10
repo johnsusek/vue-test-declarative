@@ -29,6 +29,13 @@ Sets the data of your component to these values before running the test.
 
 The BindingTarget will be set to this value of the `context` variable in your `<script>` tag. 
 
+## \<trigger>
+```xml
+<trigger selector="SelectorValue" event="EventValue" />
+```
+
+Triggers event named EventValue on the element(s) returned by SelectorValue.
+
 ## \<expect>
 ```xml
 <expect ReturnValue Matcher="MatchedValue">
