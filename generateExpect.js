@@ -8,52 +8,52 @@ function generateExpect(expect) {
     .replace(/\\s+/g, ' ')
     .replace(/>\\s+</g, "><")`;
 
-  if (expect['@_text'] === true) {
+  if (expect.$['text'] !== undefined) {
     subjectValue = 'wrapper.text()';
   }
-  else if (expect['@_html'] === true) {
+  else if (expect.$['html'] !== undefined) {
     subjectValue = `wrapper.html()${trimHtml}`;
   }
-  else if (expect['@_text-of']) {
-    subjectValue = `wrapper.find("${expect['@_text-of']}").text()`;
+  else if (expect.$['text-of']) {
+    subjectValue = `wrapper.find("${expect.$['text-of']}").text()`;
   }
-  else if (expect['@_html-of']) {
-    subjectValue = `wrapper.find("${expect['@_html-of']}").html()${trimHtml}`;
+  else if (expect.$['html-of']) {
+    subjectValue = `wrapper.find("${expect.$['html-of']}").html()${trimHtml}`;
   }
 
   let expectedValue;
   let comparisonFn;
 
-  if (expect['@_v-bind:to-match']) {
+  if (expect.$['v-bind:to-match']) {
     comparisonFn = 'toMatch';
-    expectedValue = 'context.' + expect['@_v-bind:to-match'];
+    expectedValue = 'context.' + expect.$['v-bind:to-match'];
   }
-  else if (expect['@_to-match']) {
+  else if (expect.$['to-match']) {
     comparisonFn = 'toMatch';
-    if (expect['#text'] && expect['@_to-match'] === true) {
+    if (expect['_'] && expect.$['to-match'] !== undefined) {
       // if this has a child cdata, parse it as a string to use as the expected value
-      let escaped = squish(expect['#text']);
+      let escaped = squish(expect['_']);
       expectedValue = `"${escaped}"`;
     }
     else {
       // otherwise just use the value in the attr
-      expectedValue = `"${expect['@_to-match']}"`
+      expectedValue = `"${expect.$['to-match']}"`
     }
   }
-  else if (expect['@_v-bind:to-equal']) {
+  else if (expect.$['v-bind:to-equal']) {
     comparisonFn = 'toEqual';
-    expectedValue = 'context.' + expect['@_v-bind:to-equal'];
+    expectedValue = 'context.' + expect.$['v-bind:to-equal'];
   }
-  else if (expect['@_to-equal']) {
+  else if (expect.$['to-equal']) {
     comparisonFn = 'toEqual';
     // if this has a child cdata, parse it as a string to use as the expected value
-    if (expect['#text'] && expect['@_to-equal'] === true) {
-      let escaped = squish(expect['#text']);
+    if (expect['_'] && expect.$['to-equal'] !== undefined) {
+      let escaped = squish(expect['_']);
       expectedValue = `"${escaped}"`;
     }
     else {
       // otherwise just use the value in the attr
-      expectedValue = `"${expect['@_to-equal']}"`
+      expectedValue = `"${expect.$['to-equal']}"`
     }
   }
 

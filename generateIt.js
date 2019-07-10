@@ -1,39 +1,43 @@
-let generateExpect = require('./generateExpect');
+let { generateExpect } = require('./generateExpect');
+let { generateTrigger } = require('./generateTrigger');
 
 function generateIt(it) {
   let lines = [];
 
-  lines.push(`  it('will ${it['@_will']}', async () => {`);
+  lines.push(`  it('will ${it.$.will}', async () => {`);
   
   // TODO: move this out one level?
-  lines.push(`    let wrapper = mount(Component, { localVue, sync: false });`);
+  lines.push(`    let options = { localVue, sync: false }`)
+  lines.push(`    if (typeof store !== 'undefined') { options.store = store; }`);
+  lines.push(`    let wrapper = mount(Component, options);`);
 
   // v-bind:props="props" = wrapper.setProps(props)
-  let propsBinding = it['@_v-bind:props'];
+  let propsBinding = it.$['v-bind:props'];
   if (propsBinding) {
     lines.push(`    wrapper.setProps(context.${propsBinding});`);
   }
 
   // v-bind:data="data" = wrapper.setData(data)
-  let dataBinding = it['@_v-bind:data'];
+  let dataBinding = it.$['v-bind:data'];
   if (dataBinding) {
     lines.push(`    wrapper.setData(context.${dataBinding});`);
   }
 
-  let expects;
+  // loop through each child of it.$$ and build either an expect line or a trigger line
+  it.$$.forEach(child => {
+    // console.log(child);
 
-  // it.expect might be either an object (single child) or array (multiple)
-  // if single child, turn into array then foreach like usual
-  if (Array.isArray(it.expect)) {
-    expects = it.expect;
-  }
-  else {
-    expects = [it.expect];
-  }
-
-  // loop through each 'expects' to generate the case
-  expects.forEach(expect => {
-    lines = lines.concat(generateExpect.generateExpect(expect));
+    switch (child['#name']) {
+      case 'trigger':
+        lines = lines.concat(generateTrigger(child));
+        break;
+      case 'expect':
+        lines = lines.concat(generateExpect(child));
+        break;
+      default:
+        console.warn('Unknown tag ' + child['#name']);
+        break;
+    }
   });
 
   // TODO: destroy()

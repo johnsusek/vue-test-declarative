@@ -58,34 +58,34 @@ function createSetupFile() {
 }
 
 function processFile(file) {
-  let [parsedXml, script] = parser.parse(file);
+  parser.parse(file, (parsedXml, script) => {
+    let componentPath = parsedXml.tests.$.for;
 
-  let componentPath = parsedXml.tests['@_for'];
-
-  if (!componentPath) {
-    console.error("Error: Test lacks a `for` attribute.");
-    return;
-  }
-
-  let localVue = `let localVue = createLocalVue();`
-
-  // If there is a vuetest.setup.js file, use those contents instead
-  if (fs.existsSync('./vuetest.setup.js')) {
-    localVue = fs.readFileSync('./vuetest.setup.js');
-  }
-
-  let generated = generator.generate(componentPath, parsedXml, script, localVue);
-
-  if (!fs.existsSync(workingDir)){
-    fs.mkdirSync(workingDir);
-  }
+    if (!componentPath) {
+      console.error("Error: Test lacks a `for` attribute.");
+      return;
+    }
   
-  try {
-    fs.writeFileSync(`${workingDir}/${uuidv4()}.vuetest.spec.js`, generated.trim());
-  } catch (error) {
-    console.error("Error writing spec file: ", error);
-    process.exit(1);
-  }
+    let localVue = `let localVue = createLocalVue();`
+  
+    // If there is a vuetest.setup.js file, use those contents instead
+    if (fs.existsSync('./vuetest.setup.js')) {
+      localVue = fs.readFileSync('./vuetest.setup.js');
+    }
+  
+    let generated = generator.generate(componentPath, parsedXml, script, localVue);
+    
+    if (!fs.existsSync(workingDir)){
+      fs.mkdirSync(workingDir);
+    }
+    
+    try {
+      fs.writeFileSync(`${workingDir}/${uuidv4()}.vuetest.spec.js`, generated.trim());
+    } catch (error) {
+      console.error("Error writing spec file: ", error);
+      process.exit(1);
+    }
+  });
 }
 
 function findWebpackConfig() {
@@ -102,7 +102,7 @@ function findWebpackConfig() {
 }
 
 // TODO: add config file so users can customize webpack config location
-function runTests() {
+function runTests() {    
   let webpackConfig = findWebpackConfig();
 
   if (!webpackConfig) {

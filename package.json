@@ -8,9 +8,8 @@
     "vue-test-declarative": "bin/run.js"
   },
   "dependencies": {
-    "fast-xml-parser": "^3.12.16",
     "glob": "^7.1.4",
-    "he": "^1.2.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "xml2js": "^0.4.19"
   }
 }

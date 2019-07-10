@@ -1,26 +1,20 @@
-let parser = require('fast-xml-parser');
-let he = require('he');
 let fs = require('fs');
+let parseString = require('xml2js').parseString;
+
+function nameToLowerCase(name){
+  return name.toLowerCase();
+}
 
 let options = {
-  //   attributeNamePrefix : "@_",
-  // attrNodeName: "attr", //default is 'false'
-  // textNodeName: "#text",
-  ignoreAttributes: false,
-  //   ignoreNameSpace : false,
-  allowBooleanAttributes: true,
-  //   parseNodeValue : true,
-  //   parseAttributeValue : false,
-  //   trimValues: true,
-  //   cdataTagName: "__cdata", //default is 'false'
-  //   cdataPositionChar: "\\c",
-  //   localeRange: "", //To support non english character in tag/attribute values.
-  //   parseTrueNumberOnly: false,
-  //   attrValueProcessor: a => he.decode(a, {isAttributeValue: true}),//default is a=>a
-  //   tagValueProcessor : a => he.decode(a) //default is a=>a
+  trim: true, 
+  explicitChildren: true, 
+  preserveChildrenOrder: true, 
+  strict: false,
+  normalizeTags: true,
+  attrNameProcessors: [nameToLowerCase]
 };
 
-function parse(fileName) {
+function parse(fileName, cb) {
   let rawFile = fs.readFileSync(fileName, 'utf8');
 
   // First we just take the <script> area out since we don't
@@ -40,19 +34,15 @@ function parse(fileName) {
   xmlData = xmlData.replace(/<html>/g, '<![CDATA[')
   xmlData = xmlData.replace(/<\/html>/g, ']]>')
 
-  // If there was a validation error, object is returned { err: ... }
-  // otherwise 'true' for good validation
-  let validationResult = parser.validate(xmlData, options);
-
-  if (validationResult !== true) {
-    console.error('Invalid .vuetest file: ', validationResult);
-    process.exit(1);
-  }
-
-  // Valid - we can safely parse
-  let parsed = parser.parse(xmlData, options);
-
-  return [parsed, scriptData]
+  parseString(xmlData, options, function (err, parsed) {
+    if (err) {
+      console.error('Invalid .vuetest file: ', err);
+      process.exit(1);  
+    }
+    else {
+      cb(parsed, scriptData);
+    }
+  });
 }
 
 module.exports = {

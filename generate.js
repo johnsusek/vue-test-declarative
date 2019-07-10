@@ -38,7 +38,6 @@ function generate(componentPath, parsed, script, localVue) {
   });
 
   lines.push('});');
-  debugger;
 
   return `${head}\n${script}\n\n${lines.join('\n')}\n\n`;
 }
