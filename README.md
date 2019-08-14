@@ -58,17 +58,11 @@ localVue.use(ElementUI);
 
 👉 [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md)
 
-# Examples
-
-👉 [TodoMVC Example](https://github.com/johnsusek/vue-test-declarative-todomvc)
-
-Users are highly encouraged to check out this example. It adds .vuetest coverage to a modified version of the official TodoMVC implementation.. 
-
 # Feedback
 
 **Feedback encouraged**, please file a github issue. This is the early days of this project so your feedback is critical in guiding the design!
 
 # Contributing
 
-**Contributors wanted**, I am actively looking for people to help with this project. There is a lot of work left to do, including the design of the API. If you like the idea of this project and want to help out, please email john@johnsolo.net or @jsusek. 
+**Contributors wanted**, I am actively looking for people to help with this project. There is a lot of work left to do, including the design of the API. If you like the idea of this project and want to help out, please email john@johnsolo.net. 
 
