@@ -40,7 +40,7 @@ let context = {
 </script>
 ```
 
-This simple test __expects__ for the __text to match__ "Welcome!" in the rendered HelloWorld component. This component uses a prop named msg to display a welcome message, so we pass one in using our script section.
+This simple test __expects__ for the component __text to match__ "Welcome!" in the rendered HelloWorld component. This component uses a prop named msg to display a welcome message, so we pass one in using our script section.
 
 ## Run tests
 
