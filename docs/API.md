@@ -118,7 +118,7 @@ Matches value exactly on the matcher content.
 
 The contents of the `<script>` tag are executed before your tests start. 
 
-The special `context` variable is where bindings connect to your data; e.g. `v-bind:props="myProps"` sets your component's props to whatever is in `context.myProps`. This must be set if you are using bindings.
+The special `context` variable is where bindings connect to your data; e.g. `v-bind:props="myProps"` sets your component's props to whatever is in `context.myProps`. This must be defined if you are using bindings.
 
 #### Examples:
 ```xml
