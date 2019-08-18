@@ -26,7 +26,11 @@ Think of it like an "easy mode" for Vue unit testing.
 
 vue-test-declarative uses a new file format `.vuetest` that is similar to a `.vue` component. 
 
-The file is split into two sections, the `<tests>` and the `<script>`. The `<tests>` section describes a list of unit tests using a declarative markup syntax. The `<script>` section contains code that will be executed before each test and can include a special `context` variable for binding data to a test. More details are available in the [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md).
+The file is split into two sections, the `<tests>` and the `<script>`. 
+* The `<tests>` section describes a list of unit tests using a declarative markup syntax. 
+* The `<script>` section contains code that will be executed before each test and can include a special `context` variable for binding data to a test. 
+
+More details are available in the [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md).
 
 ## Example .vuetest file
 
