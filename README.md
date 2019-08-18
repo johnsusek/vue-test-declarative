@@ -60,7 +60,7 @@ let localVue = createLocalVue();
 localVue.use(ElementUI);
 ```
 
-Any additional javascript required by your tests can be added to this file, and it will be executed before your tests are run.
+Any additional javascript required by your tests can be added to this file, and it will be executed before your tests are run. In general, any test-specific javascript should go into your .vuetest `<script>` section, while anything global to all tests should go into your vuetest.setup.js file.
 
 # Configuration
 
