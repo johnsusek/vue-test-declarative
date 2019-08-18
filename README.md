@@ -34,7 +34,7 @@ More details are available in the [API Docs](https://github.com/johnsusek/vue-te
 
 ## Example .vuetest file
 
-For this example, we'll test the `HelloWorld` component from the default vue-cli template. 
+For this example, we'll test the `HelloWorld` component from the [default vue-cli template](https://github.com/vuejs/vue-cli/blob/master/packages/@vue/cli-service/generator/template/src/components/HelloWorld.vue). 
 
 Create a `HelloWorld.vuetest` file in the `test/declarative` directory with these contents:
 
