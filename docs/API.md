@@ -120,8 +120,6 @@ The contents of the `<script>` tag are executed before your tests start.
 
 The special `context` variable is where bindings connect to your data; e.g. `v-bind:props="myProps"` sets your component's props to whatever is in `context.myProps`. This must be set if you are using bindings.
 
-Generated tests are run from a subdirectory of the project root. It's suggested to use the webpack alias `@` to resolve paths to your files when using imports in your script tag.
-
 #### Examples:
 ```xml
 <script>
