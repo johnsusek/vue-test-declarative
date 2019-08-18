@@ -9,8 +9,19 @@ let uuidv4 = require('uuid/v4');
 
 // Make sure ran from project root since we assume this
 if (!fs.existsSync('package.json')){
-  console.error("Error: Must run from project root.");
-  process.exit(1);
+  quit("Error: Must run from project root.");
+}
+
+// Load config if it exists
+let config = {};
+
+if (fs.existsSync('vuetest.config.json')) {
+  let configJson = fs.readFileSync('vuetest.config.json', 'utf8');
+  try {
+    config = JSON.parse(configJson);    
+  } catch (error) {
+    quit("Error parsing vuetest.config.json");
+  }
 }
 
 // 1) Pre-process xml to change e.g. :props="props" -> v-bind:props="props"
@@ -19,7 +30,11 @@ if (!fs.existsSync('package.json')){
 // 4) Write test case to spec file
 
 let cwd = process.cwd();
-let workingDir = cwd + '/.vue-test-declarative-generated';
+let workingDir = cwd + '/test/declarative';
+
+if (config.testsPath) {
+  workingDir = cwd + '/' + config.testsPath;
+}
 
 let options = {
   ignore: ["**/node_modules/**", "./node_modules/**"]
@@ -39,21 +54,19 @@ glob(cwd + '/**/*.vuetest', options, (err, files) => {
     runTests();
   }
   else {
-    console.log('No .vuetest files found.');
-    cleanup();
+    quit('No .vuetest files found.');
   }
 })
 
 function createSetupFile() {
   if (!fs.existsSync(workingDir)){
-    fs.mkdirSync(workingDir);
+    quit(`Working directory ${workingDir} not found.`);
   }
 
   try {
-    fs.writeFileSync(`${workingDir}/setup.js`, setup.trim());
+    fs.writeFileSync(`${workingDir}/generated-setup.js`, setup.trim());
   } catch (error) {
-    console.error("Error writing setup file: ", error);
-    process.exit(1);
+    quit("Error writing setup file: ", error);
   }
 }
 
@@ -66,14 +79,24 @@ function processFile(file) {
       return;
     }
   
-    let localVue = `let localVue = createLocalVue();`
+    let localVueSetup = "";
   
-    // If there is a vuetest.setup.js file, use those contents instead
-    if (fs.existsSync('./vuetest.setup.js')) {
-      localVue = fs.readFileSync('./vuetest.setup.js');
+    // If there is a vuetest.setup.js file, use those contents
+    if (fs.existsSync(`${workingDir}/vuetest.setup.js`)) {
+      let setupContents = fs.readFileSync(`${workingDir}/vuetest.setup.js`);
+
+      // If the setup file doesn't define localVue, add it to there
+      if (!setupContents.includes('createLocalVue')) {
+        localVueSetup += `let localVue = createLocalVue();\n`;
+      }
+
+      localVueSetup += setupContents;
+    }
+    else {
+      localVueSetup = `let localVue = createLocalVue();\n`;
     }
   
-    let generated = generator.generate(componentPath, parsedXml, script, localVue);
+    let generated = generator.generate(componentPath, parsedXml, script, localVueSetup);
     
     if (!fs.existsSync(workingDir)){
       fs.mkdirSync(workingDir);
@@ -91,7 +114,10 @@ function processFile(file) {
 function findWebpackConfig() {
   let configLocation
 
-  if (fs.existsSync('./node_modules/@vue/cli-service/webpack.config.js')) {
+  if (config.webpackConfigPath) {
+    configLocation = config.webpackConfigPath;
+  }
+  else if (fs.existsSync('./node_modules/@vue/cli-service/webpack.config.js')) {
     configLocation = './node_modules/@vue/cli-service/webpack.config.js';
   }
   else if (fs.existsSync('./build/webpack.base.conf.js')) {
@@ -106,16 +132,14 @@ function runTests() {
   let webpackConfig = findWebpackConfig();
 
   if (!webpackConfig) {
-    console.error("Error: Could not find webpack config file.")
-    cleanup();
-    process.exit(1);
+    quit("Error: Could not find webpack config file.")
   }
 
   try {
-    let child = spawn('./node_modules/.bin/mocha-webpack', 
+    let child = spawn('./node_modules/.bin/mochapack', 
       [
         '--require',
-        workingDir + '/setup.js',
+        workingDir + '/generated-setup.js',
         '--webpack-config', 
         webpackConfig,
         workingDir + '/*.vuetest.spec.js'
@@ -129,7 +153,7 @@ function runTests() {
       cleanup();
     });    
   } catch (error) {
-    console.error("Error: Problem spawning mocha-webpack.")
+    console.error("Error: Problem spawning mochapack.")
     cleanup();
   }
 }
@@ -141,10 +165,12 @@ function cleanup() {
       fs.unlinkSync(file);
     })
 
-    fs.unlinkSync(workingDir + '/setup.js');
-
-    if (fs.existsSync(workingDir)){
-      fs.rmdirSync(workingDir);
-    }    
+    fs.unlinkSync(workingDir + '/generated-setup.js');
   });
+}
+
+function quit(message, code = 1) {
+  console.log(message);
+  cleanup();
+  process.exit(code);
 }

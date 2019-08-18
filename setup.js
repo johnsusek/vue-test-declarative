@@ -1,7 +1,15 @@
 let setup = `
-  require('jsdom-global')();
+  require('babel-register')();
+  require('babel-polyfill');
+  
+  var html;
+  var options = { url: 'http://localhost/' };
+  this.jsdom = require('jsdom-global')(html, options);
 
+  require('browser-env')();
+  
   // Fixes issue with vue-loader/prettier
+  window.Date = Date;
   global.Date = Date;
 
   // A simple in-memory polyfill for localStorage
