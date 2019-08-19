@@ -1,6 +1,6 @@
 {
   "name": "vue-test-declarative",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Test Vue components declaratively",
   "author": "John Susek",
   "license": "MIT",
