@@ -1,6 +1,6 @@
 # Installation 
 
-Vue-test-declarative is easiest to use out-of-the-box with a recent vue-cli project configured for mocha unit testing. If you're starting a new project, it's suggested to go that route.
+Vue-test-declarative is easiest to use out-of-the-box with a recent vue-cli project configured for mocha unit testing. If you're starting a new project, it's suggested to go that route. If you have a vue-cli project, but without unit testing, use the command `vue add @vue/unit-mocha`.
 
 For older projects, you may need to install some additional packages to get up-and-running.
 
