@@ -89,7 +89,7 @@ vue-test-declarative tries to find your webpack config automatically if you are 
 
 👉 [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md)
 
-👉 [Installation](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md)
+👉 [Installation](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/Install.md)
 
 👉 [TodoMVC Example Test Suite](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/examples/Vuex-TodoMVC.vuetest)
 
