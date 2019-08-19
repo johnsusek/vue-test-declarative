@@ -38,5 +38,6 @@ import store from '../../examples/todomvc/store'
 ```
 
 <br>
+<hr>
 
-If you're having trouble adding vue-test-declarative to your project, please file a github issue!
+⚠️ If you're having trouble adding vue-test-declarative to your project, please file a github issue!
