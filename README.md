@@ -16,11 +16,8 @@ Think of it like an "easy mode" for Vue unit testing.
 
 * Create a new vue-cli project with mocha unit testing, or for existing vue-cli projects use `vue add @vue/unit-mocha`
   * For older projects, non vue-cli projects, and other installation scenarios, [see here](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/Install.md)
-* Run `npm install --save-dev vue-test-declarative expect jsdom jsdom-global browser-env babel-register babel-polyfill`
-  * This command installs vue-test-declarative and other packages used by its default test setup file
-* Add `"test:declarative": "vue-test-declarative"` to the `scripts` section of package.json
-  * This line allows you to use `npm run test:declarative` to run your tests
-* Create directory `test/declarative` for your tests and setup file.
+* Run `npm install --save-dev vue-test-declarative expect jsdom jsdom-global browser-env babel-register babel-polyfill mochapack`
+  * This command installs vue-test-declarative and other packages used by its test setup file
 
 # Usage
 
@@ -36,7 +33,7 @@ More details are available in the [API Docs](https://github.com/johnsusek/vue-te
 
 For this example, we'll test the `HelloWorld` component from the [default vue-cli template](https://github.com/vuejs/vue-cli/blob/master/packages/@vue/cli-service/generator/template/src/components/HelloWorld.vue). 
 
-Create a `HelloWorld.vuetest` file in the `test/declarative` directory with these contents:
+Create a `HelloWorld.vuetest` file in the `tests/declarative` directory with these contents:
 
 ```xml
 <tests for="@/components/HelloWorld.vue">
@@ -60,11 +57,11 @@ This simple test __expects__ for the component __text to match__ "Welcome!" in t
 
 `npm run test:declarative`
 
-This command will generate and run mocha tests for all `.vuetest` files in your test path (defaults to `test/declarative`).
+This command will generate and run mocha tests for all `.vuetest` files in your test path (defaults to `tests/declarative`).
 
 ## vuetest.setup.js
 
-Sometimes your tests will require you to import and register components you are using (like vuetify or element-ui), or run other setup before a test. If you need this functionality, create a `vuetest.setup.js` file in the `test/declarative` directory that defines a variable called `localVue`. This will be used instead of the default Vue instance when running your tests.
+Sometimes your tests will require you to import and register components you are using (like vuetify or element-ui), or run other setup before a test. If you need this functionality, create a `vuetest.setup.js` file in the `tests/declarative` directory that defines a variable called `localVue`. This will be used instead of the default Vue instance when running your tests.
 
 ```javascript
 import ElementUI from 'element-ui';
@@ -82,7 +79,7 @@ Create a `vuetest.config.json` file in your project root. This file may contain 
 
 ## `testsPath`
 
-vue-test-declarative defaults to looking for tests in `test/declarative` (which you will have to create the first time you write a test). Use this config setting if you want to place your .vuetest and vuetest.setup.js files somewhere else.
+vue-test-declarative defaults to looking for tests in `tests/declarative` (which you will have to create the first time you write a test). Use this config setting if you want to place your .vuetest and vuetest.setup.js files somewhere else.
 
 ## `webpackConfigPath`
 

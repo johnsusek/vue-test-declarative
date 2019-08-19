@@ -1,0 +1,18 @@
+<!-- 
+  Create a new Vue CLI project with mocha unit testing, then place this file into
+  /tests/declarative (you'll have to create this directory).
+-->
+
+<tests for="@/components/HelloWorld.vue">
+  <it will="render message correctly" v-bind:props="props">
+    <expect text to-match="Welcome!" />
+  </it>
+</tests>
+
+<script>
+let context = {
+  props: {
+    msg: 'Welcome!',
+  }
+};
+</script>

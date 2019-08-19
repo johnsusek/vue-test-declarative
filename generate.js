@@ -6,7 +6,7 @@ let head = `
 
 import Vue from 'vue';
 import expect from 'expect';
-import { config, mount, shallowMount, createLocalVue } from '@vue/test-utils';
+import { config, mount, createLocalVue } from '@vue/test-utils';
 
 config.stubs.transition = false;
 

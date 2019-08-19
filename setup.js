@@ -7,7 +7,7 @@ let setup = `
   this.jsdom = require('jsdom-global')(html, options);
 
   require('browser-env')();
-  
+
   // Fixes issue with vue-loader/prettier
   window.Date = Date;
   global.Date = Date;

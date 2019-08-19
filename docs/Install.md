@@ -8,15 +8,15 @@ Below are various scenarios and instructions for adding vue-test-declarative to 
 
 # Scenario 1: Adding to a Vue 2.5 project
 
-* Run `npm install --save-dev vue-test-declarative @vue/test-utils mocha@5 mocha-webpack expect jsdom jsdom-global browser-env babel-register babel-polyfill`
+* Run `npm install --save-dev vue-test-declarative @vue/test-utils mocha@5 mochapack expect jsdom jsdom-global browser-env babel-register babel-polyfill`
 * Add `"test:declarative": "vue-test-declarative"` to the `scripts` section of package.json
 * Write and run a test like in the usage example. You may need to create a `vuetest.config.json` file with your webpack config path (see configuration section of README). 
 
 # Scenario 2: Adding to the official [Vuex TodoMVC example](https://github.com/vuejs/vuex/tree/dev/examples/todomvc)
 
-* Run `npm install --save-dev vue-test-declarative expect jsdom jsdom-global browser-env babel-register babel-polyfill` from project root.
+* Run `npm install --save-dev vue-test-declarative expect jsdom jsdom-global browser-env babel-register babel-polyfill mochapack` from project root.
 * Add `"test:declarative": "vue-test-declarative"` to the `scripts` section of package.json
-* Create directory `test/declarative`
+* Create directory `tests/declarative`
 
 Create config file `vuetest.config.json` with these contents:
 ```json
@@ -25,7 +25,7 @@ Create config file `vuetest.config.json` with these contents:
 }
 ```
 
-Create test file `test/declarative/App.vuetest` in this directory with these contents:
+Create test file `tests/declarative/App.vuetest` in this directory with these contents:
 ```xml
 <tests for="../../examples/todomvc/components/App.vue">
   <it will="Render app">
@@ -34,7 +34,7 @@ Create test file `test/declarative/App.vuetest` in this directory with these con
 </tests>
 ```
 
-Create setup file `test/declarative/vuetest.setup.js` in this directory with these contents:
+Create setup file `tests/declarative/vuetest.setup.js` in this directory with these contents:
 ```javascript
 import store from '../../examples/todomvc/store'
 ```

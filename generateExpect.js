@@ -3,28 +3,43 @@ function generateExpect(expect) {
 
   let subjectValue;
 
-  let trimHtml = `.trim()
+  let trimStmt = `.trim()
     .replace(/[\\n\\r]/g, '')
     .replace(/\\s+/g, ' ')
     .replace(/>\\s+</g, "><")`;
 
   if (expect.$['text'] !== undefined) {
-    subjectValue = 'wrapper.text()';
+    subjectValue = `wrapper.text()${trimStmt}`;
   }
   else if (expect.$['html'] !== undefined) {
-    subjectValue = `wrapper.html()${trimHtml}`;
+    subjectValue = `wrapper.html()${trimStmt}`;
   }
   else if (expect.$['text-of']) {
-    subjectValue = `wrapper.find("${expect.$['text-of']}").text()`;
+    subjectValue = `wrapper.find("${expect.$['text-of']}").text()${trimStmt}`;
   }
   else if (expect.$['html-of']) {
-    subjectValue = `wrapper.find("${expect.$['html-of']}").html()${trimHtml}`;
+    subjectValue = `wrapper.find("${expect.$['html-of']}").html()${trimStmt}`;
   }
 
-  let expectedValue;
+  let expectedValue = '';
   let comparisonFn;
 
-  if (expect.$['v-bind:to-match']) {
+  if (expect.$['to-be-falsy'] !== undefined) {
+    comparisonFn = 'toBeFalsy';
+  }
+  else if (expect.$['to-be-truthy'] !== undefined) {
+    comparisonFn = 'toBeTruthy';
+  }
+  else if (expect.$['to-be-defined'] !== undefined) {
+    comparisonFn = 'toBeDefined';
+  }
+  else if (expect.$['to-be-undefined'] !== undefined) {
+    comparisonFn = 'toBeUndefined';
+  }
+  else if (expect.$['to-be-null'] !== undefined) {
+    comparisonFn = 'toBeNull';
+  }
+  else if (expect.$['v-bind:to-match']) {
     comparisonFn = 'toMatch';
     expectedValue = 'context.' + expect.$['v-bind:to-match'];
   }

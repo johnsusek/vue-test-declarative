@@ -1,6 +1,27 @@
 # API
 
+In summary, a .vuetest file looks like this:
+```xml
+<tests>
+  <it>
+    <set>
+    <trigger>
+    <expect>
+  </it>
+</tests>
+
+<script></script>
+```
+
+See below for details about each of these tags.
+
+<br>
+
 ## `<tests>`
+
+<details>
+ <summary>Details</summary>
+
 ```xml
 <tests for="ComponentPath">
 ```
@@ -9,9 +30,14 @@
 
 This is the path to the component, used when importing it into your tests. Webpack aliases are supported.
 
+</details>
+
 <br>
 
 ## `<it>`
+<details>
+ <summary>Details</summary>
+
 ```xml
 <it will="WillValue" BindingTarget="BindingValue">
 ```
@@ -42,9 +68,40 @@ The BindingTarget will be set to this value of the `context` variable in your `<
 <it will="render data value correctly" v-bind:data="myData">
 ```
 
+</details>
+
+<br>
+
+## `<set>`
+
+<details>
+ <summary>Details</summary>
+
+```xml
+<set selector="SelectorValue" value="Value" />
+```
+
+Sets form input (text or select) value to Value.
+
+#### Examples:
+
+```xml
+<set selector="input.first-name" value="Bob" />
+```
+
+```xml
+<set selector="select.title" value="Mr." />
+```
+
+</details>
+
 <br>
 
 ## `<trigger>`
+
+<details>
+ <summary>Details</summary>
+
 ```xml
 <trigger selector="SelectorValue" event="EventValue" />
 ```
@@ -56,9 +113,15 @@ Triggers event named EventValue on the element(s) returned by SelectorValue.
 <trigger selector=".el-select" event="change" />
 ```
 
+</details>
+
 <br>
 
 ## `<expect>`
+
+<details>
+ <summary>Details</summary>
+
 ```xml
 <expect ReturnValue Matcher="MatchedValue" />
 ```
@@ -91,25 +154,57 @@ Matches value as a substring of the matcher content.
 
 Matches value exactly on the matcher content.
 
-### MatchedValues
+#### `to-be-truthy`
+
+Matches anything that an "if" statement treats as true.
+
+#### `to-be-falsy`
+
+Matches anything that an "if" statement treats as false.
+
+#### `to-be-defined`
+
+Matches if value is defined.
+
+#### `to-be-undefined`
+
+Matches if value is undefined.
+
+#### `to-be-null`
+
+Matches if value is null.
 
 #### Examples:
 
 ```xml
-  <expect text to-match="Welcome!" />
+<expect html to-match="Welcome!" />
 ```
 
 ```xml
-  <expect html to-match="Welcome!">
-    <html>
-      <h1> foo </h1>
-    </html>
-  </expect>
+<expect text-of=".todo-list li" to-match="First" />
 ```
+
+```xml
+<expect text-of=".todo-list" to-be-falsy />
+```
+
+```xml
+<expect html to-match="Welcome!">
+  <html>
+    <h1> foo </h1>
+  </html>
+</expect>
+```
+
+</details>
 
 <br>
 
 ## `<script>`
+
+<details>
+ <summary>Details</summary>
+
 ```xml
 <script>
   let context = {...}
@@ -130,3 +225,7 @@ let context = {
 };
 </script>
 ```
+
+</details>
+
+<br>

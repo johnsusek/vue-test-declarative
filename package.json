@@ -7,6 +7,9 @@
   "bin": {
     "vue-test-declarative": "bin/run.js"
   },
+  "scripts": {
+    "postinstall": "scripts/postinstall.js"
+  },
   "dependencies": {
     "glob": "^7.1.4",
     "uuid": "^3.3.2",

@@ -30,7 +30,7 @@ if (fs.existsSync('vuetest.config.json')) {
 // 4) Write test case to spec file
 
 let cwd = process.cwd();
-let workingDir = cwd + '/test/declarative';
+let workingDir = cwd + '/tests/declarative';
 
 if (config.testsPath) {
   workingDir = cwd + '/' + config.testsPath;
@@ -71,7 +71,7 @@ function createSetupFile() {
 }
 
 function processFile(file) {
-  parser.parse(file, (parsedXml, script) => {
+  parser.parse(file, (parsedXml, script = '') => {
     let componentPath = parsedXml.tests.$.for;
 
     if (!componentPath) {
@@ -170,7 +170,7 @@ function cleanup() {
 }
 
 function quit(message, code = 1) {
-  console.log(message);
+  console.log(`[vue-test-declarative] ${message}\n`);
   cleanup();
   process.exit(code);
 }

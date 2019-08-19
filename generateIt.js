@@ -1,5 +1,6 @@
 let { generateExpect } = require('./generateExpect');
 let { generateTrigger } = require('./generateTrigger');
+let { generateSet } = require('./generateSet');
 
 function generateIt(it) {
   let lines = [];
@@ -25,23 +26,44 @@ function generateIt(it) {
 
   // loop through each child of it.$$ and build either an expect line or a trigger line
   it.$$.forEach(child => {
-    // console.log(child);
-
-    switch (child['#name']) {
-      case 'trigger':
-        lines = lines.concat(generateTrigger(child));
-        break;
-      case 'expect':
-        lines = lines.concat(generateExpect(child));
-        break;
-      default:
-        console.warn('Unknown tag ' + child['#name']);
-        break;
-    }
+    lines = lines.concat(generateLines(child));
   });
 
-  // TODO: destroy()
   lines.push('  });\n');
+
+  return lines;
+}
+
+function generateLines(child) {
+  let lines = [];
+
+  switch (child['#name']) {
+    case 'trigger':
+      lines = lines.concat(generateTrigger(child));
+      break;
+    case 'set':
+      lines = lines.concat(generateSet(child));
+      break;
+    case 'expect':
+      lines = lines.concat(generateExpect(child));
+      break;
+    default:
+      console.warn('Unknown tag ' + child['#name']);
+      break;
+  }
+
+  // For some reason, the first tag shows up in it.$$ and 
+  // the rest of the tags show up on the first child's $$
+  // on tags with bare attributes like 'to-be-truthy'
+  // This really seems like it could be a parser bug, but
+  // go with it for now.
+  // Basically all subsequent tags except the first one
+  // show up as a child of the first, so we just recursively build the rules
+  if (child.$$) {
+    child.$$.forEach(gchild => {
+      lines = lines.concat(generateLines(gchild));
+    });
+  }
 
   return lines;
 }
