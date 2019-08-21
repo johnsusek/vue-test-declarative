@@ -114,11 +114,11 @@ Any additional javascript required by your tests can be added to this file, and 
 
 Create a `vuetest.config.json` file in your project root. This file may contain options to configure vue-test-declarative. The following options are supported:
 
-## `testsPath`
+### `testsPath`
 
 vue-test-declarative defaults to looking for tests in `tests/declarative`. Use this config setting if you want to place your .vuetest and vuetest.setup.js files somewhere else.
 
-## `webpackConfigPath`
+### `webpackConfigPath`
 
 vue-test-declarative tries to find your webpack config automatically if you are using a vue-cli template. If your webpack.config.js file is in another location, set its path here.
 
