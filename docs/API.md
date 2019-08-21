@@ -1,6 +1,6 @@
 # API
 
-```xml
+```vue
 <tests>
   <test>
     <set>
@@ -19,7 +19,7 @@
 <details>
  <summary>Details</summary>
 
-```xml
+```vue
 <tests for="ComponentPath">
 ```
 
@@ -35,7 +35,7 @@ This is the path to the component, used when importing it into your tests. Webpa
 <details>
  <summary>Details</summary>
 
-```xml
+```vue
 <test name="NameValue" BindingTarget="BindingValue">
 ```
 
@@ -55,13 +55,13 @@ Sets the data of your component to these values before running the test.
 The BindingTarget will be set to this value of the `context` variable in your `<script>` tag. 
 
 #### Examples:
-```xml
+```vue
 <test name="render app">
 ```
-```xml
+```vue
 <test name="render message correctly" :props="myProps">
 ```
-```xml
+```vue
 <test name="render data value correctly" :data="myData">
 ```
 
@@ -74,7 +74,7 @@ The BindingTarget will be set to this value of the `context` variable in your `<
 <details>
  <summary>Details</summary>
 
-```xml
+```vue
 <set selector="SelectorValue" value="Value" />
 ```
 
@@ -82,11 +82,11 @@ Sets form input (text or select) value to Value.
 
 #### Examples:
 
-```xml
+```vue
 <set selector="input.first-name" value="Bob" />
 ```
 
-```xml
+```vue
 <set selector="select.title" value="Mr." />
 ```
 
@@ -99,7 +99,7 @@ Sets form input (text or select) value to Value.
 <details>
  <summary>Details</summary>
 
-```xml
+```vue
 <trigger selector="SelectorValue" event="EventValue" />
 ```
 
@@ -107,11 +107,11 @@ Triggers event named EventValue on the element(s) returned by SelectorValue.
 
 #### Examples: 
 
-```xml
+```vue
 <trigger selector=".new-todo" event="keyup.enter" />
 ```
 
-```xml
+```vue
 <trigger selector=".el-select" event="change" />
 ```
 
@@ -124,7 +124,7 @@ Triggers event named EventValue on the element(s) returned by SelectorValue.
 <details>
  <summary>Details</summary>
 
-```xml
+```vue
 <expect ReturnValue Matcher="MatchedValue" />
 ```
 
@@ -152,9 +152,17 @@ Match html of the selector.
 
 Matches value as a substring of the matcher content.
 
+#### `:to-match`
+
+Same as above but with bindings. Pass context variable key name or regex.
+
 #### `to-equal`
 
 Matches value exactly on the matcher content.
+
+#### `:to-equal`
+
+Same as above but with bindings. Pass context variable key name or regex.
 
 #### `to-be-truthy`
 
@@ -178,19 +186,31 @@ Matches if value is null.
 
 #### Examples:
 
-```xml
+```vue
 <expect html to-match="Welcome!" />
 ```
 
-```xml
+```vue
 <expect text-of=".todo-list li" to-match="First" />
 ```
 
-```xml
+```vue
+<expect text-of=".todo-list li" :to-match="/F.*t/" />
+```
+
+```vue
+<expect text-of=".todo-list li" :to-match="myMatchValue" />
+
+<script>
+let context = { myMatchValue: 'First' }
+</script>
+```
+
+```vue
 <expect text-of=".todo-list" to-be-falsy />
 ```
 
-```xml
+```vue
 <expect html to-match="Welcome!">
   <html>
     <h1> foo </h1>
@@ -207,7 +227,7 @@ Matches if value is null.
 <details>
  <summary>Details</summary>
 
-```xml
+```vue
 <script>
   let context = {...}
 </script>
@@ -218,7 +238,7 @@ The contents of the `<script>` tag are executed before your tests start.
 The special `context` variable is where bindings connect to your data; e.g. `:props="myProps"` sets your component's props to whatever is in `context.myProps`. This must be defined if you are using bindings.
 
 #### Examples:
-```xml
+```vue
 <script>
 let context = {
   myProps: {

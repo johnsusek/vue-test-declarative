@@ -41,7 +41,9 @@ function generateExpect(expect) {
   }
   else if (expect.$[':to-match']) {
     comparisonFn = 'toMatch';
-    expectedValue = 'context.' + expect.$[':to-match'];
+    let matchBindingValue = expect.$[':to-match'];
+    expectedValue = matchBindingValue.startsWith('/') ? '' : 'context.';
+    expectedValue += matchBindingValue
   }
   else if (expect.$['to-match']) {
     comparisonFn = 'toMatch';
