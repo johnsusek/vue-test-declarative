@@ -12,11 +12,14 @@ Its aim is to sit alongside [vue-test-utils](https://github.com/vuejs/vue-test-u
 
 Think of it like an "easy mode" for Vue unit testing.
 
+# Prerequisites
+* A vue-cli project with mocha unit testing
+  * For existing vue-cli projects without mocha unit testing, run `vue add @vue/unit-mocha`
+* For older projects, non vue-cli projects, and other installation scenarios, [see more detailed install instructions here](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/Install.md)
+
 # Installation
 
-* Create a new vue-cli project with mocha unit testing, or for existing vue-cli projects use `vue add @vue/unit-mocha`
-  * For older projects, non vue-cli projects, and other installation scenarios, [see here](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/Install.md)
-* Run `npm install --save-dev vue-test-declarative expect jsdom jsdom-global browser-env babel-register babel-polyfill mochapack`
+* `npm install --save-dev vue-test-declarative expect jsdom jsdom-global browser-env babel-register babel-polyfill mochapack`
   * This command installs vue-test-declarative and other packages used by its test setup file
 
 # Usage
@@ -112,7 +115,7 @@ Create a `vuetest.config.json` file in your project root. This file may contain 
 
 ## `testsPath`
 
-vue-test-declarative defaults to looking for tests in `tests/declarative` (which you will have to create the first time you write a test). Use this config setting if you want to place your .vuetest and vuetest.setup.js files somewhere else.
+vue-test-declarative defaults to looking for tests in `tests/declarative`. Use this config setting if you want to place your .vuetest and vuetest.setup.js files somewhere else.
 
 ## `webpackConfigPath`
 
