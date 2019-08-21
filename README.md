@@ -51,7 +51,7 @@ Create a `HelloWorld.vuetest` file in the `tests/declarative` directory with the
 
 ```vue
 <tests for="@/components/HelloWorld.vue">
-  <test name="Render message correctly" v-bind:props="props">
+  <test name="Render message correctly" :props="props">
     <expect text to-match="Welcome!" />
   </it>
 </tests>

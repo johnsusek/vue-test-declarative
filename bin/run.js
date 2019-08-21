@@ -12,9 +12,9 @@ if (!fs.existsSync('package.json')){
   quit("Error: Must run from project root.");
 }
 
-// Load config if it exists
 let config = {};
 
+// Load config if it exists
 if (fs.existsSync('vuetest.config.json')) {
   let configJson = fs.readFileSync('vuetest.config.json', 'utf8');
   try {
@@ -23,11 +23,6 @@ if (fs.existsSync('vuetest.config.json')) {
     quit("Error parsing vuetest.config.json");
   }
 }
-
-// 1) Pre-process xml to change e.g. :props="props" -> v-bind:props="props"
-// 2) Parse xml to js data structure
-// 3) Loop over data stucture and generate js test case
-// 4) Write test case to spec file
 
 let cwd = process.cwd();
 let workingDir = cwd + '/tests/declarative';

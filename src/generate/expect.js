@@ -39,9 +39,9 @@ function generateExpect(expect) {
   else if (expect.$['to-be-null'] !== undefined) {
     comparisonFn = 'toBeNull';
   }
-  else if (expect.$['v-bind:to-match']) {
+  else if (expect.$[':to-match']) {
     comparisonFn = 'toMatch';
-    expectedValue = 'context.' + expect.$['v-bind:to-match'];
+    expectedValue = 'context.' + expect.$[':to-match'];
   }
   else if (expect.$['to-match']) {
     comparisonFn = 'toMatch';
@@ -55,9 +55,9 @@ function generateExpect(expect) {
       expectedValue = `"${expect.$['to-match']}"`
     }
   }
-  else if (expect.$['v-bind:to-equal']) {
+  else if (expect.$[':to-equal']) {
     comparisonFn = 'toEqual';
-    expectedValue = 'context.' + expect.$['v-bind:to-equal'];
+    expectedValue = 'context.' + expect.$[':to-equal'];
   }
   else if (expect.$['to-equal']) {
     comparisonFn = 'toEqual';

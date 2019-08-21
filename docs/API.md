@@ -47,10 +47,10 @@ This is used as the display name when running the test.
 
 ### BindingTarget
 
-#### `v-bind:props`
+#### `:props`
 Sets the props of your component to these values before running the test.
 
-#### `v-bind:data`
+#### `:data`
 Sets the data of your component to these values before running the test.
 
 ### BindingValue
@@ -62,10 +62,10 @@ The BindingTarget will be set to this value of the `context` variable in your `<
 <test name="render app">
 ```
 ```xml
-<test name="render message correctly" v-bind:props="myProps">
+<test name="render message correctly" :props="myProps">
 ```
 ```xml
-<test name="render data value correctly" v-bind:data="myData">
+<test name="render data value correctly" :data="myData">
 ```
 
 </details>
@@ -213,7 +213,7 @@ Matches if value is null.
 
 The contents of the `<script>` tag are executed before your tests start. 
 
-The special `context` variable is where bindings connect to your data; e.g. `v-bind:props="myProps"` sets your component's props to whatever is in `context.myProps`. This must be defined if you are using bindings.
+The special `context` variable is where bindings connect to your data; e.g. `:props="myProps"` sets your component's props to whatever is in `context.myProps`. This must be defined if you are using bindings.
 
 #### Examples:
 ```xml

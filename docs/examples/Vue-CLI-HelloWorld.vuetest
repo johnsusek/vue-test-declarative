@@ -4,7 +4,7 @@
 -->
 
 <tests for="@/components/HelloWorld.vue">
-  <test name="render message correctly" v-bind:props="props">
+  <test name="render message correctly" :props="props">
     <expect text to-match="Welcome!" />
   </test>
 </tests>

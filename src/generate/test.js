@@ -12,14 +12,16 @@ function generateTest(test) {
   lines.push(`    if (typeof store !== 'undefined') { options.store = store; }`);
   lines.push(`    let wrapper = mount(Component, options);`);
 
-  // v-bind:props="props" = wrapper.setProps(props)
-  let propsBinding = test.$['v-bind:props'];
+  // :props="props" = wrapper.setProps(props)
+  console.log(test.$)
+
+  let propsBinding = test.$[':props'];
   if (propsBinding) {
     lines.push(`    wrapper.setProps(context.${propsBinding});`);
   }
 
-  // v-bind:data="data" = wrapper.setData(data)
-  let dataBinding = test.$['v-bind:data'];
+  // :data="data" = wrapper.setData(data)
+  let dataBinding = test.$[':data'];
   if (dataBinding) {
     lines.push(`    wrapper.setData(context.${dataBinding});`);
   }
