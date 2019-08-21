@@ -19,8 +19,9 @@ Think of it like an "easy mode" for Vue unit testing.
 
 # Installation
 
-* `npm install --save-dev vue-test-declarative expect jsdom jsdom-global browser-env babel-register babel-polyfill mochapack`
-  * This command installs vue-test-declarative and other packages used by its test setup file
+`npm install --save-dev vue-test-declarative expect jsdom jsdom-global browser-env babel-register babel-polyfill mochapack`
+
+This command installs vue-test-declarative and other packages used by its test setup file.
 
 # Usage
 
