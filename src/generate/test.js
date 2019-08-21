@@ -1,6 +1,6 @@
-let { generateExpect } = require('./generateExpect');
-let { generateTrigger } = require('./generateTrigger');
-let { generateSet } = require('./generateSet');
+let { generateExpect } = require('./expect');
+let { generateTrigger } = require('./trigger');
+let { generateSet } = require('./set');
 
 function generateTest(test) {
   let lines = [];

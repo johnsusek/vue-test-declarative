@@ -1,5 +1,5 @@
 // Loop through parsed xml and write out js
-let generateTest = require('./generateTest');
+let generateTest = require('./test');
 
 let head = `
 /* THIS FILE IS AUTO-GENERATED, EDITS WILL BE OVERWRITTEN */
