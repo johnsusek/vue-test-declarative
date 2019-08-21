@@ -75,6 +75,10 @@ See all tags and options in the [API docs](https://github.com/johnsusek/vue-test
 
 This command will generate and run mocha tests for all `.vuetest` files in your test path (defaults to `tests/declarative`).
 
+`npm run test:declarative -- --keep`
+
+This command is the same as above but will not delete the generated mocha tests after running.
+
 ## vuetest.setup.js
 
 Sometimes your tests will require you to import and register components you are using (like vuetify or element-ui), or run other setup before a test. If you need this functionality, create a `vuetest.setup.js` file in the `tests/declarative` directory that defines a variable called `localVue`. This will be used instead of the default Vue instance when running your tests.
