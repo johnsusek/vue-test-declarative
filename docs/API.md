@@ -3,11 +3,11 @@
 In summary, a .vuetest file looks like this:
 ```xml
 <tests>
-  <it>
+  <test>
     <set>
     <trigger>
     <expect>
-  </it>
+  </test>
 </tests>
 
 <script></script>
@@ -34,16 +34,16 @@ This is the path to the component, used when importing it into your tests. Webpa
 
 <br>
 
-## `<it>`
+## `<test>`
 <details>
  <summary>Details</summary>
 
 ```xml
-<it will="WillValue" BindingTarget="BindingValue">
+<test name="NameValue" BindingTarget="BindingValue">
 ```
 
-### WillValue
-This is used as the description for the test case.
+### NameValue
+This is used as the display name when running the test.
 
 ### BindingTarget
 
@@ -59,13 +59,13 @@ The BindingTarget will be set to this value of the `context` variable in your `<
 
 #### Examples:
 ```xml
-<it will="render app">
+<test name="render app">
 ```
 ```xml
-<it will="render message correctly" v-bind:props="myProps">
+<test name="render message correctly" v-bind:props="myProps">
 ```
 ```xml
-<it will="render data value correctly" v-bind:data="myData">
+<test name="render data value correctly" v-bind:data="myData">
 ```
 
 </details>

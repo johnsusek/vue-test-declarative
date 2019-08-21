@@ -2,10 +2,10 @@ let { generateExpect } = require('./generateExpect');
 let { generateTrigger } = require('./generateTrigger');
 let { generateSet } = require('./generateSet');
 
-function generateIt(it) {
+function generateTest(test) {
   let lines = [];
 
-  lines.push(`  it('will ${it.$.will}', async () => {`);
+  lines.push(`  it('${test.$.name}', async () => {`);
   
   // TODO: move this out one level?
   lines.push(`    let options = { localVue, sync: false }`)
@@ -13,19 +13,19 @@ function generateIt(it) {
   lines.push(`    let wrapper = mount(Component, options);`);
 
   // v-bind:props="props" = wrapper.setProps(props)
-  let propsBinding = it.$['v-bind:props'];
+  let propsBinding = test.$['v-bind:props'];
   if (propsBinding) {
     lines.push(`    wrapper.setProps(context.${propsBinding});`);
   }
 
   // v-bind:data="data" = wrapper.setData(data)
-  let dataBinding = it.$['v-bind:data'];
+  let dataBinding = test.$['v-bind:data'];
   if (dataBinding) {
     lines.push(`    wrapper.setData(context.${dataBinding});`);
   }
 
-  // loop through each child of it.$$ and build either an expect line or a trigger line
-  it.$$.forEach(child => {
+  // loop through each child of test.$$ and build either an expect line or a trigger line
+  test.$$.forEach(child => {
     lines = lines.concat(generateLines(child));
   });
 
@@ -52,7 +52,7 @@ function generateLines(child) {
       break;
   }
 
-  // For some reason, the first tag shows up in it.$$ and 
+  // For some reason, the first tag shows up in test.$$ and 
   // the rest of the tags show up on the first child's $$
   // on tags with bare attributes like 'to-be-truthy'
   // This really seems like it could be a parser bug, but
@@ -69,5 +69,5 @@ function generateLines(child) {
 }
 
 module.exports = {
-  generateIt
+  generateTest
 }

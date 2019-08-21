@@ -26,7 +26,7 @@ Create config file `vuetest.config.json` with these contents:
 Create test file `tests/declarative/App.vuetest` in this directory with these contents:
 ```xml
 <tests for="../../examples/todomvc/components/App.vue">
-  <it will="Render app">
+  <test name="Render app">
     <expect html to-match="todos" />
   </it>
 </tests>

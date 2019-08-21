@@ -9,48 +9,48 @@
 -->
 
 <tests for="../../examples/todomvc/components/App.vue">
-  <it will="render header">
+  <test name="render header">
     <expect text-of="h1" to-match="todos" />
-  </it>
+  </test>
 
-  <it will="add a todo">
+  <test name="add a todo">
     <set selector=".new-todo" value="First" />
     <trigger selector=".new-todo" event="keyup.enter" />
     <expect text-of=".todo-list li" to-match="First" />
     <expect text-of=".todo-count" to-match="1 item left" />
-  </it>
+  </test>
 
-  <it will="remove a todo">
+  <test name="remove a todo">
     <expect text-of=".todo-list" to-be-truthy />
     <trigger selector=".todo-list li .destroy" event="click" />
     <expect text-of=".todo-list" to-be-falsy />
-  </it>
+  </test>
 
-  <it will="add then complete a todo">
+  <test name="add then complete a todo">
     <set selector=".new-todo" value="Another" />
     <trigger selector=".new-todo" event="keyup.enter" />
     <trigger selector="input.toggle" event="click" />
     <expect text-of=".todo.completed" to-match="Another" />
-  </it>
+  </test>
 
-  <it will="clicking `active` hides list">
+  <test name="clicking `active` hides list">
     <expect text-of=".todo-list" to-be-truthy />
     <trigger selector='a[href="#/active"]' event="click" />
     <expect text-of=".todo-list" to-be-falsy />
-  </it>
+  </test>
 
-  <it will="clicking `completed` shows item we added + completed">
+  <test name="clicking `completed` shows item we added + completed">
     <trigger selector='a[href="#/completed"]' event="click" />
     <expect text-of=".todo-list" to-equal="Another" />
-  </it>
+  </test>
 
-  <it will="clear the list when `clear completed` is clicked">
+  <test name="clear the list when `clear completed` is clicked">
     <expect text-of=".todo-list" to-equal="Another" />
     <trigger selector=".clear-completed" event="click" />
     <expect text-of=".todo-list" to-be-falsy />
-  </it>
+  </test>
 
-  <it will="mark all items completed when `toggle all` clicked">
+  <test name="mark all items completed when `toggle all` clicked">
     <!-- Add a todo -->
     <set selector=".new-todo" value="Another" />
     <trigger selector=".new-todo" event="keyup.enter" />
@@ -62,5 +62,5 @@
     <!-- Confirm the active list is empty -->
     <trigger selector='a[href="#/active"]' event="click" />
     <expect text-of=".todo-list" to-be-falsy />
-  </it>
+  </test>
 </tests>

@@ -4,9 +4,9 @@
 -->
 
 <tests for="@/components/HelloWorld.vue">
-  <it will="render message correctly" v-bind:props="props">
+  <test name="render message correctly" v-bind:props="props">
     <expect text to-match="Welcome!" />
-  </it>
+  </test>
 </tests>
 
 <script>

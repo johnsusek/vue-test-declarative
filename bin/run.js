@@ -160,13 +160,13 @@ function runTests() {
 
 // remove generated tests
 function cleanup() {
-  glob(workingDir + '/*.vuetest.spec.js', options, (err, files) => {
-    files.forEach(file => {
-      fs.unlinkSync(file);
-    })
+  let files = glob.sync(workingDir + '/*.vuetest.spec.js', options);
+  
+  files.forEach(file => {
+    fs.unlinkSync(file);
+  })
 
-    fs.unlinkSync(workingDir + '/generated-setup.js');
-  });
+  fs.unlinkSync(workingDir + '/generated-setup.js');
 }
 
 function quit(message, code = 1) {

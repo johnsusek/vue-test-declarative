@@ -29,7 +29,21 @@ The file is split into two sections, the `<tests>` and the `<script>`.
 
 More details are available in the [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md).
 
-## Example .vuetest file
+## Examples
+
+## Simplest
+
+The simplest possible test just checks for the specified text anywhere in the rendered component.
+
+```xml
+<tests for="@/components/MyComponent.vue">
+  <test name="Contains success message">
+    <expect text to-match="Success!" />
+  </it>
+</tests>
+```
+
+## HelloWorld
 
 For this example, we'll test the `HelloWorld` component from the [default vue-cli template](https://github.com/vuejs/vue-cli/blob/master/packages/@vue/cli-service/generator/template/src/components/HelloWorld.vue). 
 
@@ -37,7 +51,7 @@ Create a `HelloWorld.vuetest` file in the `tests/declarative` directory with the
 
 ```xml
 <tests for="@/components/HelloWorld.vue">
-  <it will="render message correctly" v-bind:props="props">
+  <test name="Render message correctly" v-bind:props="props">
     <expect text to-match="Welcome!" />
   </it>
 </tests>
