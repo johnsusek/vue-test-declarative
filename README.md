@@ -130,6 +130,10 @@ vue-test-declarative tries to find your webpack config automatically if you are 
 
 👉 [TodoMVC Example Test Suite](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/examples/Vuex-TodoMVC.vuetest)
 
+# Tips
+
+💡 Set the syntax highlighting in your editor to vue, vue-html, or xml when working with .vuetest files.
+
 # Feedback
 
 **Feedback encouraged**, please file a github issue. This is the early days of this project so your feedback is critical in guiding the design!
