@@ -12,16 +12,13 @@ Its aim is to sit alongside [vue-test-utils](https://github.com/vuejs/vue-test-u
 
 Think of it like an "easy mode" for Vue unit testing.
 
-# Prerequisites
-* A vue-cli project with mocha unit testing
-  * For existing vue-cli projects without mocha unit testing, run `vue add @vue/unit-mocha`
-* For older projects, non vue-cli projects, and other installation scenarios, [see more detailed install instructions here](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/Install.md)
-
 # Installation
 
-`npm install --save-dev vue-test-declarative expect jsdom jsdom-global browser-env babel-register babel-polyfill mochapack`
+`npm install --save-dev vue-test-declarative @vue/test-utils mocha@5 mochapack expect jsdom jsdom-global browser-env babel-register babel-polyfill`
 
-This command installs vue-test-declarative and other packages used by its test setup file.
+This command installs vue-test-declarative and other packages used by the generated tests.
+
+See configuration section below if you are using a custom webpack config location.
 
 # Usage
 
@@ -125,8 +122,6 @@ vue-test-declarative tries to find your webpack config automatically if you are 
 # Documentation
 
 👉 [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md)
-
-👉 [Installation](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/Install.md)
 
 👉 [TodoMVC Example Test Suite](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/examples/Vuex-TodoMVC.vuetest)
 
