@@ -35,7 +35,7 @@ More details are available in the [API Docs](https://github.com/johnsusek/vue-te
 
 ## Examples
 
-### Simplest
+### 1) Simplest
 
 Here's a very simple test file that just checks for the specified text anywhere in the rendered component.
 
@@ -47,7 +47,7 @@ Here's a very simple test file that just checks for the specified text anywhere 
 </tests>
 ```
 
-### HelloWorld
+### 2) HelloWorld
 
 For this example, we'll test the `HelloWorld` component from the [default vue-cli template](https://github.com/vuejs/vue-cli/blob/master/packages/@vue/cli-service/generator/template/src/components/HelloWorld.vue) that we've all seen when starting a new project. 
 
@@ -73,7 +73,7 @@ This simple test __expects__ for the component __text to match__ "Welcome!" in t
 
 See all tags and options in the [API docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md).
 
-### TodoMVC
+### 3) TodoMVC
 
 Here is a test from the TodoMVC tests that shows how interactions work:
 
