@@ -49,7 +49,7 @@ For this example, we'll test the `HelloWorld` component from the [default vue-cl
 
 Create a `HelloWorld.vuetest` file in the `tests/declarative` directory with these contents:
 
-```xml
+```vue
 <tests for="@/components/HelloWorld.vue">
   <test name="Render message correctly" v-bind:props="props">
     <expect text to-match="Welcome!" />
