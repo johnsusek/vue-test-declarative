@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 let glob = require('glob');
 let fs = require('fs');
-let parser = require('../parse');
-let { setup } = require('../setup');
-let generator = require('../generate');
+let parser = require('../src/parse');
+let { setup } = require('../src/setup');
+let generator = require('../src/generate');
 let { spawn } = require('child_process');
 let uuidv4 = require('uuid/v4');
 
