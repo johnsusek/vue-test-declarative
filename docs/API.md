@@ -1,6 +1,5 @@
 # API
 
-In summary, a .vuetest file looks like this:
 ```xml
 <tests>
   <test>
@@ -12,8 +11,6 @@ In summary, a .vuetest file looks like this:
 
 <script></script>
 ```
-
-See below for details about each of these tags.
 
 <br>
 
@@ -109,6 +106,11 @@ Sets form input (text or select) value to Value.
 Triggers event named EventValue on the element(s) returned by SelectorValue.
 
 #### Examples: 
+
+```xml
+<trigger selector=".new-todo" event="keyup.enter" />
+```
+
 ```xml
 <trigger selector=".el-select" event="change" />
 ```

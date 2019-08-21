@@ -45,7 +45,7 @@ The simplest possible test just checks for the specified text anywhere in the re
 
 ## HelloWorld
 
-For this example, we'll test the `HelloWorld` component from the [default vue-cli template](https://github.com/vuejs/vue-cli/blob/master/packages/@vue/cli-service/generator/template/src/components/HelloWorld.vue). 
+For this example, we'll test the `HelloWorld` component from the [default vue-cli template](https://github.com/vuejs/vue-cli/blob/master/packages/@vue/cli-service/generator/template/src/components/HelloWorld.vue) that we've all seen when starting a new project. 
 
 Create a `HelloWorld.vuetest` file in the `tests/declarative` directory with these contents:
 
@@ -66,6 +66,8 @@ let context = {
 ```
 
 This simple test __expects__ for the component __text to match__ "Welcome!" in the rendered HelloWorld component. This component uses a prop named msg to display a welcome message, so we pass one in using our script section.
+
+See all tags and options in the [API docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md).
 
 ## Run tests
 

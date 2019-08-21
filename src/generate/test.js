@@ -12,21 +12,16 @@ function generateTest(test) {
   lines.push(`    if (typeof store !== 'undefined') { options.store = store; }`);
   lines.push(`    let wrapper = mount(Component, options);`);
 
-  // :props="props" = wrapper.setProps(props)
-  console.log(test.$)
-
   let propsBinding = test.$[':props'];
   if (propsBinding) {
     lines.push(`    wrapper.setProps(context.${propsBinding});`);
   }
 
-  // :data="data" = wrapper.setData(data)
   let dataBinding = test.$[':data'];
   if (dataBinding) {
     lines.push(`    wrapper.setData(context.${dataBinding});`);
   }
 
-  // loop through each child of test.$$ and build either an expect line or a trigger line
   test.$$.forEach(child => {
     lines = lines.concat(generateLines(child));
   });

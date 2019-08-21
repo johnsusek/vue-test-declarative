@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 let glob = require('glob');
 let fs = require('fs');
+let argv = require('yargs').argv;
 let parser = require('../src/parse');
 let { setup } = require('../src/setup');
 let generator = require('../src/generate');
@@ -155,6 +156,8 @@ function runTests() {
 
 // remove generated tests
 function cleanup() {
+  if (argv.keep) return;
+  
   let files = glob.sync(workingDir + '/*.vuetest.spec.js', options);
   
   files.forEach(file => {

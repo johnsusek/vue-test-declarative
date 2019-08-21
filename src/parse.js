@@ -1,18 +1,10 @@
 let fs = require('fs');
 let parseString = require('xml2js').parseString;
 
+// attribute processor function to normalize tag names
 function nameToLowerCase(name){
   return name.toLowerCase();
 }
-
-let options = {
-  trim: true, 
-  explicitChildren: true, 
-  preserveChildrenOrder: true, 
-  strict: false,
-  normalizeTags: true,
-  attrNameProcessors: [nameToLowerCase]
-};
 
 function parse(fileName, cb) {
   let rawFile = fs.readFileSync(fileName, 'utf8');
@@ -30,11 +22,21 @@ function parse(fileName, cb) {
 
   let xmlData = rawFile.trim();
   
-  // Next we want to replace our 'fake cdata' <html></html> tags
+  // <html></html> tags in .vuetest files are secretly just CDATA sections
   xmlData = xmlData.replace(/<html>/g, '<![CDATA[')
   xmlData = xmlData.replace(/<\/html>/g, ']]>')
 
-  parseString(xmlData, options, function (err, parsed) {
+  // https://www.npmjs.com/package/xml2js#options
+  let options = {
+    trim: true, 
+    explicitChildren: true, 
+    preserveChildrenOrder: true, 
+    strict: false,
+    normalizeTags: true,
+    attrNameProcessors: [nameToLowerCase]
+  };
+    
+  parseString(xmlData, options, (err, parsed) => {
     if (err) {
       console.error('Invalid .vuetest file: ', err);
       process.exit(1);  
