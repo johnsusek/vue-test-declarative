@@ -30,6 +30,8 @@ The file is split into two sections, the `<tests>` and the `<script>`.
 
 More details are available in the [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md).
 
+Place these .vuetest files in the `tests/declarative` directory in your project.
+
 ## Examples
 
 ### 1) Simplest
