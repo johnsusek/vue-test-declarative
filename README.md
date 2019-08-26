@@ -42,7 +42,7 @@ Here's a very simple test file that just checks for the specified text anywhere 
 <tests for="@/components/MyComponent.vue">
   <test name="Contains success message">
     <expect text to-match="Success!" />
-  </it>
+  </test>
 </tests>
 ```
 
@@ -56,7 +56,7 @@ Create a `HelloWorld.vuetest` file in the `tests/declarative` directory with the
 <tests for="@/components/HelloWorld.vue">
   <test name="Render message correctly" :props="props">
     <expect text to-match="Welcome!" />
-  </it>
+  </test>
 </tests>
 
 <script>
