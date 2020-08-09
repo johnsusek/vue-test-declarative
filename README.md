@@ -10,10 +10,6 @@ vue add @vue/unit-mocha
 yarn add --dev vue-test-declarative babel-register babel-polyfill browser-env
 ```
 
-This command installs vue-test-declarative and other packages used by the generated tests.
-
-See configuration section below if you are using a custom webpack config location.
-
 # Usage
 
 1) Create a file `HelloWorld.vuetest` in `tests/declarative`:
