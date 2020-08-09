@@ -16,11 +16,11 @@ See configuration section below if you are using a custom webpack config locatio
 
 # Usage
 
-1) Create a file `MyComponent.vuetest` in `tests/declarative`:
+1) Create a file `HelloWorld.vuetest` in `tests/declarative`:
 ```xml
-<tests for="@/components/MyComponent.vue">
+<tests for="@/components/HelloWorld.vue">
   <test name="Contains success message">
-    <expect text to-match="Success!" />
+    <expect text to-match="Welcome" />
   </test>
 </tests>
 ```
@@ -40,14 +40,14 @@ Create a `HelloWorld.vuetest` file in the `tests/declarative` directory with the
 ```vue
 <tests for="@/components/HelloWorld.vue">
   <test name="Render message correctly" :props="props">
-    <expect text to-match="Welcome!" />
+    <expect text to-match="Success!" />
   </test>
 </tests>
 
 <script>
 let context = {
   props: {
-    msg: 'Welcome!',
+    msg: 'Success!',
   }
 };
 </script>
