@@ -55,7 +55,7 @@ See all tags and options in the [API docs](https://github.com/johnsusek/vue-test
 
 ### Interactions
 
-Here is a test for the official TodoMVC example that shows how interactions work:
+Here is a test for the official TodoMVC example that shows how interactions (`set`/`trigger`) work:
 
 ```vue
 <test name="add a todo">
