@@ -16,15 +16,24 @@ See configuration section below if you are using a custom webpack config locatio
 
 # Usage
 
-vue-test-declarative uses a new file format `.vuetest` that is similar to a `.vue` component. 
+1) Create a file `MyComponent.vuetest` in `tests/declarative`:
+```xml
+<tests for="@/components/MyComponent.vue">
+  <test name="Contains success message">
+    <expect text to-match="Success!" />
+  </test>
+</tests>
+```
 
-The file is split into two sections, the `<tests>` and the `<script>`. 
-* The `<tests>` section describes a list of unit tests using a declarative markup syntax. 
-* The `<script>` section contains code that will be executed before each test and can include a special `context` variable for binding data to a test. 
+2) Run `npm run test:declarative` 
+
+> vue-test-declarative uses a new file format `.vuetest` that is similar to a `.vue` component. 
+
+> The file is split into two sections, the `<tests>` and the `<script>`. 
+> * The `<tests>` section describes a list of unit tests using a declarative markup syntax. 
+> * The `<script>` section contains code that will be executed before each test and can include a special `context` variable for binding data to a test. 
 
 More details are available in the [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md).
-
-Place these .vuetest files in the `tests/declarative` directory in your project.
 
 ## Examples
 
