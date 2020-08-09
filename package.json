@@ -1,11 +1,11 @@
 {
   "name": "vue-test-declarative",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Test Vue components declaratively",
   "author": "John Susek",
-  "repository": { 
+  "repository": {
     "type": "git",
-    "url": "https://github.com/johnsusek/vue-test-declarative.git" 
+    "url": "https://github.com/johnsusek/vue-test-declarative.git"
   },
   "license": "MIT",
   "bin": {
