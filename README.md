@@ -1,20 +1,14 @@
 # Introduction
 
-Writing Vue components is a pleasure, but when it comes time to test them, suddenly the fun goes away. 
-
-What if there was an easier way to get started testing your components? 
-
-A way to describe your tests in a familiar declarative format, without having to learn the entire JS testing ecosystem just to be a responsible developer? 
-
-Well **vue-test-declarative** aims to do just that, letting you spend more time thinking about what to test and less time thinking about the details of running the tests.
-
-Its aim is to sit alongside [vue-test-utils](https://github.com/vuejs/vue-test-utils) and provide an easy to approach entry point into component unit testing. The vue-test-utils package will always be available to you for custom behavior or scenarios not covered by vue-test-declarative. In this way vue-test-declarative aims to be additive to the ecosystem, instead of replacing anything. 
-
-Think of it like an "easy mode" for Vue unit testing.
+Vue unit testing EZ-mode.
 
 # Installation
 
-`npm install --save-dev vue-test-declarative @vue/test-utils mocha mochapack module expect jsdom jsdom-global browser-env babel-register babel-polyfill`
+```js
+vue add @vue/unit-jest
+vue add @vue/unit-mocha
+yarn add --dev vue-test-declarative babel-register babel-polyfill browser-env
+```
 
 This command installs vue-test-declarative and other packages used by the generated tests.
 
