@@ -27,29 +27,11 @@ See configuration section below if you are using a custom webpack config locatio
 
 2) Run `npm run test:declarative` 
 
-> vue-test-declarative uses a new file format `.vuetest` that is similar to a `.vue` component. 
-
-> The file is split into two sections, the `<tests>` and the `<script>`. 
-> * The `<tests>` section describes a list of unit tests using a declarative markup syntax. 
-> * The `<script>` section contains code that will be executed before each test and can include a special `context` variable for binding data to a test. 
-
 More details are available in the [API Docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md).
 
 ## Examples
 
-### 1) Simplest
-
-Here's a very simple test file that just checks for the specified text anywhere in the rendered component.
-
-```xml
-<tests for="@/components/MyComponent.vue">
-  <test name="Contains success message">
-    <expect text to-match="Success!" />
-  </test>
-</tests>
-```
-
-### 2) HelloWorld
+### Props
 
 For this example, we'll test the `HelloWorld` component from the [default vue-cli template](https://github.com/vuejs/vue-cli/blob/master/packages/@vue/cli-service/generator/template/src/components/HelloWorld.vue) that we've all seen when starting a new project. 
 
@@ -75,9 +57,9 @@ This simple test __expects__ for the component __text to match__ "Welcome!" in t
 
 See all tags and options in the [API docs](https://github.com/johnsusek/vue-test-declarative/blob/master/docs/API.md).
 
-### 3) TodoMVC
+### Interactions
 
-Here is a test from the TodoMVC tests that shows how interactions work:
+Here is a test for the official TodoMVC example that shows how interactions work:
 
 ```vue
 <test name="add a todo">
@@ -110,7 +92,9 @@ let localVue = createLocalVue();
 localVue.use(ElementUI);
 ```
 
-Any additional javascript required by your tests can be added to this file, and it will be executed before your tests are run. In general, any test/component-specific javascript should go into your .vuetest `<script>` section, while anything global to all tests should go into your vuetest.setup.js file.
+Any additional javascript required by your tests can be added to this file, and it will be executed before your tests are run. 
+
+**In general, any test/component-specific javascript should go into your .vuetest `<script>` section, while anything global to all tests should go into your vuetest.setup.js file.**
 
 # Configuration
 
@@ -133,12 +117,3 @@ vue-test-declarative tries to find your webpack config automatically if you are 
 # Tips
 
 💡 Set the syntax highlighting in your editor to vue, vue-html, or xml when working with .vuetest files.
-
-# Feedback
-
-**Feedback encouraged**, please file a github issue. This is the early days of this project so your feedback is critical in guiding the design!
-
-# Contributing
-
-**Contributors wanted**, I am actively looking for people to help with this project. There is a lot of work left to do, including the design of the API. If you like the idea of this project and want to help out, please email john@johnsolo.net. 
-
