@@ -19,7 +19,7 @@ See configuration section below if you are using a custom webpack config locatio
 1) Create a file `HelloWorld.vuetest` in `tests/declarative`:
 ```xml
 <tests for="@/components/HelloWorld.vue">
-  <test name="Contains success message">
+  <test name="Contains welcome message">
     <expect text to-match="Welcome" />
   </test>
 </tests>
