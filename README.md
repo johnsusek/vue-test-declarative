@@ -1,6 +1,6 @@
 # Introduction
 
-Vue unit testing EZ-mode. Introducing .vuetest files.
+Vue unit testing EZ-mode.
 
 # Installation
 
