@@ -75,7 +75,13 @@ function generateExpect(expect) {
   }
 
   lines.push(`    await Vue.nextTick();`)
-  lines.push(`    expect(${subjectValue}).${comparisonFn}(${expectedValue});`);
+
+  if (comparisonFn) {
+    lines.push(`    expect(${subjectValue}).${comparisonFn}(${expectedValue});`);
+  }
+  else {
+    throw new Error(`[vue-test-declarative] Invalid comparison function near expect(${subjectValue})`)
+  }
 
   return lines;
 }

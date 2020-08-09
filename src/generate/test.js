@@ -6,16 +6,18 @@ function generateTest(test) {
   let lines = [];
 
   lines.push(`  it('${test.$.name}', async () => {`);
-  
-  // TODO: move this out one level?
-  lines.push(`    let options = { localVue, sync: false }`)
+
+  let propsBinding = test.$[':props'];
+  let propsData = ''
+
+  if (propsBinding) {
+    propsData = `, propsData: context.props`
+  }
+
+  lines.push(`    let options = { localVue, sync: false ${propsData} }`)
   lines.push(`    if (typeof store !== 'undefined') { options.store = store; }`);
   lines.push(`    let wrapper = mount(Component, options);`);
 
-  let propsBinding = test.$[':props'];
-  if (propsBinding) {
-    lines.push(`    wrapper.setProps(context.${propsBinding});`);
-  }
 
   let dataBinding = test.$[':data'];
   if (dataBinding) {
@@ -49,7 +51,7 @@ function generateLines(child) {
       break;
   }
 
-  // For some reason, the first tag shows up in test.$$ and 
+  // For some reason, the first tag shows up in test.$$ and
   // the rest of the tags show up on the first child's $$
   // on tags with bare attributes like 'to-be-truthy'
   // This really seems like it could be a parser bug, but
