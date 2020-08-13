@@ -52,7 +52,7 @@ Sets the data of your component to these values before running the test.
 
 ### BindingValue
 
-The BindingTarget will be set to this value of the `context` variable in your `<script>` tag. 
+The BindingTarget will be set to this value of the `context` variable in your `<script>` tag.
 
 #### Examples:
 ```vue
@@ -105,7 +105,7 @@ Sets form input (text or select) value to Value.
 
 Triggers event named EventValue on the element(s) returned by SelectorValue.
 
-#### Examples: 
+#### Examples:
 
 ```vue
 <trigger selector=".new-todo" event="keyup.enter" />
@@ -145,6 +145,15 @@ Match text of the selector.
 #### `html-of="selector"`
 
 Match html of the selector.
+
+#### `attributes-of="selector"` `attribute="attribute"`
+
+Match attribute of the selector.
+
+> Example:
+>
+> `<expect attributes-of=".ev-pane-outer" attribute="style" to-equal="grid-template-columns: 250px 0 1fr;" />`
+
 
 ### Matchers
 
@@ -233,7 +242,7 @@ let context = { myMatchValue: 'First' }
 </script>
 ```
 
-The contents of the `<script>` tag are executed before your tests start. 
+The contents of the `<script>` tag are executed before your tests start.
 
 The special `context` variable is where bindings connect to your data; e.g. `:props="myProps"` sets your component's props to whatever is in `context.myProps`. This must be defined if you are using bindings.
 

@@ -20,6 +20,9 @@ function generateExpect(expect) {
   else if (expect.$['html-of']) {
     subjectValue = `wrapper.find("${expect.$['html-of']}").html()${trimStmt}`;
   }
+  else if (expect.$['attributes-of']) {
+    subjectValue = `wrapper.find("${expect.$['attributes-of']}").attributes('${expect.$['attribute']}')`;
+  }
 
   let expectedValue = '';
   let comparisonFn;
