@@ -19,7 +19,7 @@ let config = {};
 if (fs.existsSync('vuetest.config.json')) {
   let configJson = fs.readFileSync('vuetest.config.json', 'utf8');
   try {
-    config = JSON.parse(configJson);    
+    config = JSON.parse(configJson);
   } catch (error) {
     quit("Error parsing vuetest.config.json");
   }
@@ -36,7 +36,7 @@ let options = {
   ignore: ["**/node_modules/**", "./node_modules/**"]
 }
 
-// 1) Find all .vuetest files in the project 
+// 1) Find all .vuetest files in the project
 glob(cwd + '/**/*.vuetest', options, (err, files) => {
   createSetupFile();
 
@@ -74,9 +74,9 @@ function processFile(file) {
       console.error("Error: Test lacks a `for` attribute.");
       return;
     }
-  
+
     let localVueSetup = "";
-  
+
     // If there is a vuetest.setup.js file, use those contents
     if (fs.existsSync(`${workingDir}/vuetest.setup.js`)) {
       let setupContents = fs.readFileSync(`${workingDir}/vuetest.setup.js`);
@@ -91,13 +91,13 @@ function processFile(file) {
     else {
       localVueSetup = `let localVue = createLocalVue();\n`;
     }
-  
+
     let generated = generator.generate(componentPath, parsedXml, script, localVueSetup);
-    
+
     if (!fs.existsSync(workingDir)){
       fs.mkdirSync(workingDir);
     }
-    
+
     try {
       fs.writeFileSync(`${workingDir}/${uuidv4()}.vuetest.spec.js`, generated.trim());
     } catch (error) {
@@ -124,7 +124,7 @@ function findWebpackConfig() {
 }
 
 // TODO: add config file so users can customize webpack config location
-function runTests() {    
+function runTests() {
   let webpackConfig = findWebpackConfig();
 
   if (!webpackConfig) {
@@ -132,22 +132,23 @@ function runTests() {
   }
 
   try {
-    let child = spawn('./node_modules/.bin/mochapack', 
+    let child = spawn('./node_modules/.bin/mochapack',
       [
         '--require',
         workingDir + '/generated-setup.js',
-        '--webpack-config', 
+        '--webpack-config',
         webpackConfig,
         workingDir + '/*.vuetest.spec.js'
       ],
       {
-        stdio: 'inherit' 
+        stdio: 'inherit'
       }
-    ); 
+    );
 
     child.on('close', (code) => {
+      if (code !== 0) quit('Sorry, a test failed.');
       cleanup();
-    });    
+    });
   } catch (error) {
     console.error("Error: Problem spawning mochapack.")
     cleanup();
@@ -157,9 +158,9 @@ function runTests() {
 // remove generated tests
 function cleanup() {
   if (argv.keep) return;
-  
+
   let files = glob.sync(workingDir + '/*.vuetest.spec.js', options);
-  
+
   files.forEach(file => {
     fs.unlinkSync(file);
   })
