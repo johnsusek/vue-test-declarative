@@ -14,7 +14,7 @@ function generateTest(test) {
     propsData = `, propsData: context.props`
   }
 
-  lines.push(`    let options = { localVue, sync: false ${propsData} }`)
+  lines.push(`    let options = { localVue, sync: false ${propsData} , mocks: context.mocks}`)
   lines.push(`    if (typeof store !== 'undefined') { options.store = store; }`);
   lines.push(`    let wrapper = mount(Component, options);`);
 
